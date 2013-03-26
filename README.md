@@ -20,7 +20,7 @@ Create symlinks:
 			mklink _gvimrc .vim\gvimrc
 
 
-Switch to the `.vim` directory, and fetch submodules:
+Switch to the `.vim` or `vimfiles` directory, and fetch submodules:
 
     cd .vim
     git submodule init

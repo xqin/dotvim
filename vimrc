@@ -1,0 +1,608 @@
+set nocompatible
+behave mswin
+
+set guioptions+=c
+" gui menu
+set guioptions-=m
+set guioptions-=M
+" toolbar
+set guioptions-=t
+set guioptions-=T
+" right-hand scrollbar
+set guioptions-=r
+set guioptions-=R
+" left-hand scrollbar
+set guioptions-=l
+set guioptions-=L
+" bottom scrollbar
+set guioptions-=b
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" let $VIMFILES var
+"""""""""""""""""""""""""""""""""""""""""""""""""
+let $VIMFILES = $VIM.'/vimfiles'
+if has('unix')
+    let $VIMFILES = '~/.vim'
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" init vim-pathogen plugin
+"""""""""""""""""""""""""""""""""""""""""""""""""
+let $VIMBALL = $VIMFILES.'/bundle'
+source $VIMBALL/vim-pathogen/autoload/pathogen.vim
+
+call pathogen#infect()
+syntax on
+filetype plugin indent on
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" remap leader
+"""""""""""""""""""""""""""""""""""""""""""""""""
+let mapleader = ","
+let g:mapleader = ","
+
+
+nmap <Leader>s :w<CR>
+map <C-S> :w<CR>
+
+"关闭文件,如果文件修改过则不关闭
+nmap <Leader>w :bd<CR>
+"强制关闭文件
+nmap <Leader>W :bd!<CR>
+"退出 Vim
+nmap <Leader>q :qall<CR>
+"强制退出Vim,放弃任何改动
+nmap <Leader>Q :qall!<CR>
+
+map <Leader>e :tabnew $MYVIMRC<CR>
+
+"Show highlighting groups for current word
+nmap <C-S-P> :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+    if !exists("*synstack")
+        return
+    endif
+    echo map(synstack(line("."), col(".")), 'synIDattr(v:val, "name")')
+endfunction
+
+"快速运行当前文件
+map <leader>V :silent !%<CR>
+"快速删除整行
+map <leader>D dd
+
+
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+nnoremap j gj
+nnoremap k gk
+
+nmap Q <Nop>
+vmap Q <Nop>
+map! <F1> <Nop>
+map <A-w> :set wrap!<CR>
+
+nnoremap ; :
+
+nnoremap <leader>v V`]
+
+inoremap jj <ESC>
+
+" Only do this part when compiled with support for autocommands
+if has("autocmd")
+" When editing a file, always jump to the last cursor position
+autocmd BufReadPost *
+\ if line("'\"") > 0 && line ("'\"") <= line("$") |
+\ exe "normal g'\"" |
+\ endif
+endif
+
+map <c-o> :browse tabnew<CR>
+map <Leader>hi :noh<CR>
+map <Leader>u :e ++enc=utf-8<CR>
+map <Leader>su :set fileencoding=utf-8<CR>
+
+"在新标签中打开当前光标所在的文件
+nmap <silent> <Leader>tn :tabnew <cword><CR>
+
+nnoremap <Leader>1 :set filetype=html<CR>
+nnoremap <Leader>2 :set filetype=css<CR>
+nnoremap <Leader>3 :set filetype=php<CR>
+nnoremap <Leader>4 :set filetype=javascript<CR>
+nnoremap <Leader>5 :set filetype=xhtml<CR>
+
+
+
+"查找当前选区选中的文字,向下
+:vnoremap <silent> <Leader>f y/<C-R>=escape(@", '\\/.*$^~[]')<CR><CR>
+"查找当前选区选中的文字,向上
+:vnoremap <silent> <Leader>F y?<C-R>=escape(@", '\\/.*$^~[]')<CR><CR>
+
+
+"next buffer
+nmap <s-j> :bnext<CR>
+"prev buffer
+nmap <s-k> :bprev<CR>
+
+
+"nnoremap <C-h> <C-w>h
+"nnoremap <C-j> <C-w>j
+"nnoremap <C-k> <C-w>k
+"nnoremap <C-l> <C-w>l
+
+nmap <leader>rr :syntax sync fromstart<CR>
+
+map <A-Enter> <Esc>:call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
+
+" {{{ Fast Tab Switch
+    map <C-Tab> :tabnext<CR>
+    map <C-S-Tab> :tabprev<CR>
+" }}}
+
+cmap <c-a> <Home>
+cmap <c-e> <End>
+cmap <c-f> <Right>
+cmap <c-b> <Left>
+
+" CTRL-C are Copy
+vnoremap <C-C> "+y
+" CTRL-V and SHIFT-Insert are Paste
+imap <C-V> <C-O>"+gP
+nmap <Leader>P "+gP
+imap <S-Insert> "+gP
+cmap <C-V> <C-R>+
+cmap <S-Insert> <C-R>+
+
+
+":vimgrep /弹冠相庆/gj d:/mydocs/*/*.txt
+"如果要包含子文件夹，则用
+
+":vimgrep /弹冠相庆/gj d:/mydocs/**/*.txt
+"打开quickfix窗口查看匹配结果
+":cw
+"在输入模式下移动光标,彻底抛弃方向键
+"行首
+"inoremap <C-a> <C-O>:SmartHomeKey<CR>
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+inoremap <C-h> <left>
+inoremap <C-j> <C-o>gj
+inoremap <C-k> <C-o>gk
+inoremap <C-l> <Right>
+
+inoremap <C-i> <C-O>o
+inoremap <A-i> <C-O>O
+
+function! MakeTmpFile(ext)
+    let s:fname = $TEMP.'/vim_tmp_'.abs(reltimestr(reltime())).'.'.a:ext
+    exec ':tabnew '.s:fname
+endfunction
+
+map <Leader>n :call MakeTmpFile('html')<CR>
+map <Leader>njs :call MakeTmpFile('js')<CR>
+map <Leader>ncss :call MakeTmpFile('css')<CR>
+
+
+"F2 显示/隐藏 菜单/工具栏
+map <silent><F2> :if &guioptions =~# 'm' <Bar>
+        \set guioptions-=m <Bar>
+    \else <Bar>
+        \set guioptions+=m <Bar>
+    \endif<CR>
+
+
+
+"Shift+F2显示/隐藏菜单+标签栏
+map <silent><S-F2> :if &showtabline==1 <Bar>
+        \set guioptions-=m <Bar>
+        \set showtabline=0 <Bar>
+    \else <Bar>
+        \set guioptions+=m <Bar>
+        \set showtabline=1 <Bar>
+    \endif<CR>
+
+
+" 设置光标颜色
+hi Cursor guifg=bg guibg=Green gui=NONE
+" 设置插入状态下光标颜色
+hi CursorIM guifg=bg guibg=Blue gui=NONE
+
+
+if !exists('g:VimrcLoaded')
+    if has('gui_running')
+        "解决重新加载vimrc时重围VIM窗口位置的问题
+            "设置VIM启动时的窗体位置
+            winpos 135 100
+            "设置窗口高度
+            set lines=52
+            "设置窗口宽度
+            set columns=151
+    else
+        "设置支持的颜色数
+        set t_Co=256
+    endif
+    color molokai
+    set encoding=utf-8
+    set fileencodings=utf-8,ucs-bom,default,chinese,big5,gbk,gb2312,cp936
+    "set guifont=Courier_New_for_Powerline:h12:cANSI
+    set guifont=Microsoft_YaHei_Mono_for_Powerl:h10:cGB2312
+    "set guifontwide=YaHei\ Consolas\ Hybrid:h11
+
+    set fileformat=unix
+    set fileformats=dos,unix,mac
+    set bsdir=buffer
+    set history=256
+    set ambiwidth=double
+    set linespace=0
+    set display=lastline
+    set autoread
+    set cursorline
+    set hidden
+    set browsedir=buffer
+    set autochdir
+    "显示命令
+    set showcmd
+    "汉字双字节
+    set ambiwidth=double
+
+    "上下可视行数
+    set scrolloff=6
+    "自动保存文件
+    set autowrite
+    set nowritebackup
+    set nobackup
+    set noswapfile
+    "不显示首屏
+    "set shortmess=atI
+    set ignorecase
+    set incsearch
+    "开启搜索时高亮搜索到的结果
+    set hlsearch
+    "搜索到结尾时不重新搜索
+    "set nowrapscan
+    set smartcase
+    "显示括号配对情况
+    set showmatch
+    "不换行
+    set nowrap
+    "显示行号
+    set number
+    set autoindent
+    set smartindent
+    set tabstop=4
+    set softtabstop=4
+    set shiftwidth=4
+    set expandtab
+    set smarttab
+    "retab  将tab转换为空格
+    "执行外部命令时禁止恢复屏幕内容
+    set norestorescreen
+
+    "How many tenths of a second to blink
+    set mat=2
+    "开启C/C++风格的自动缩进
+    set cin
+    "设置自动缩进格式
+    set cino=:1g1t1(sus
+    "禁止鼠标
+    "set selectmode=key
+    "关闭鼠标的支持(如果需要开启设置值为a)
+    set mouse=a
+    " Make the command-line completion better
+    set wildmenu
+
+    "显示相对行号 (与下面的只能有一个生效)
+    "set relativenumber
+    set helplang=cn,en
+
+    set shellquote=
+    set shellslash
+    set shellxquote=
+    set shellpipe=2>&1\|tee
+    set shellredir=>%s\ 2>&1
+
+    "向右滚动20个字符的位置
+    set sidescroll=20
+
+    set nolazyredraw
+    set textwidth=79
+    "
+    "set colorcolumn=85
+
+    "显示空白及Tab
+    set list
+    set listchars=tab:\|\ ,extends:>,precedes:<
+
+    "设置删除时可回退的字符, 缩进, 结束符, 行首
+    set backspace=indent,eol,start whichwrap+=<,>,[,],h,l
+    " 重启后撤销历史可用 persistent undo
+    set undofile
+    set undodir=$VIMFILES/undo/
+    set undolevels=1000 "maximum number of changes that can be undone
+
+    "set nobomb
+    "与Windows共享剪贴板
+    "set clipboard+=unnamed
+
+    "设置代码折叠方式为 手工  indent
+    "set foldmethod=manual
+    set foldmethod=indent
+    "设置代码块折叠后显示的行数
+    "set foldexpr=1
+    set foldlevel=3
+
+    "关闭错误声音
+    set noerrorbells
+    set novisualbell
+    set t_vb=
+    set tm=500
+
+    " alway show status bar
+    set laststatus=2
+
+
+    set laststatus=2
+    set statusline=\ %<%F[%1*%M%*%n%R%H]%6b\[0x%B\]\ %{strftime(\"%m-%d\ %H:%M\")}%=\ %y\ %0(%{&fileformat}\ [%{(&fenc\ ==\"\"?&enc:&fenc).(&bomb?\",BOM\":\"\")}]\ %6l:%3c/%L%)
+
+    set sessionoptions=blank,buffers,curdir,folds,help,options,tabpages,winsize,slash,unix,resize
+
+    "设置命令行的高度为1
+    set cmdheight=1
+    "关闭标签栏
+    set showtabline=0
+
+    "执行cmd将结果返回在新tab中
+    "tabe +r\!cmd
+endif
+
+
+if !exists('g:ToggleLoad')
+    let g:ToggleLoad = 1
+    if has('gui_running') && has('libcall')
+        let g:MyVimLib = 'gvimfullscreen.dll'
+        function! ToggleFullScreen()
+            call libcall(g:MyVimLib, 'ToggleFullScreen', -1)
+        endfunction
+        map <A-Enter> <Esc>:call ToggleFullScreen()<CR>
+        "nmap <F11> :call ToggleFullScreen()<CR>
+
+        let g:VimAlpha = 240
+        function! SetAlpha(alpha)
+            let g:VimAlpha = g:VimAlpha + a:alpha
+            if g:VimAlpha < 180
+                let g:VimAlpha = 180
+            endif
+            if g:VimAlpha > 255
+                let g:VimAlpha = 255
+            endif
+            call libcall(g:MyVimLib, 'SetAlpha', g:VimAlpha)
+        endfunction
+        nmap <s-y> <Esc>:call SetAlpha(3)<CR>
+        nmap <s-t> <Esc>:call SetAlpha(-3)<CR>
+
+        let g:VimTopMost = 0
+        function! SwitchVimTopMostMode()
+            if g:VimTopMost == 0
+                let g:VimTopMost = 1
+            else
+                let g:VimTopMost = 0
+            endif
+            call libcall(g:MyVimLib, 'EnableTopMost', g:VimTopMost)
+        endfunction
+        nmap <s-r> <Esc>:call SwitchVimTopMostMode()<CR>
+        """"""""""""""""""""""""""""""""""""""""""""
+        " Fast edit hosts file
+        """"""""""""""""""""""""""""""""""""""""""""
+        function! FlushDNS()
+            python import sys
+            exe 'python sys.argv = ["ipconfig /flushdns"]'
+            exe 'pyf '.g:svn_cmd_path
+        endfunction
+        :nmap <silent> <Leader>host :tabnew c:\windows\system32\drivers\etc\hosts<CR>
+        :nmap <silent> <Leader>dns :!ipconfig /flushdns<CR>
+        autocmd! bufwritepost hosts call FlushDNS()
+
+
+    else
+
+        "let g:fullscreen = 0
+
+        function! ToggleFullscreen()
+            "if g:fullscreen == 1
+                "let g:fullscreen = 0
+                "let mod = "remove"
+           "else
+                "let g:fullscreen = 1
+                "let mod = "add"
+            "endif
+            "call system("wmctrl -ir " . v:windowid . " -b " . mod . ",fullscreen")
+            if executable('wmctrl')
+                call system("wmctrl -ir " . v:windowid . " -btoggle,fullscreen")
+            endif
+        endfunction
+
+        map <silent> <F11> :call ToggleFullscreen()<CR>
+
+    endif
+endif
+
+
+"<c-w>+     <c-w>5+     增加当前buffer的高度
+"<c-w>-     <c-w>5-     减少当前buffer的高度
+
+"""""""""""""""""""""""""""""""""""""""
+" Plugins Config Start
+"""""""""""""""""""""""""""""""""""""""
+
+" {{{ MRU
+    let MRU_Add_Menu = 0
+    let MRU_Max_Entries = 500
+    let MRU_Window_Height = 20
+    nmap <Leader>f :MRU<CR>
+" }}}
+
+" {{{ NERD_commenter
+"   Turns the menu off
+    let NERDMenuMode = 0
+" }}}
+
+" {{{ bookmarking.vim colorscheme
+    hi BookMarkHighLight guifg=#7F9845 guibg=#232526
+    "sign define bookmark text=-> texthl=BookMarkHighLight linehl=BookMarkHighLight
+    let g:bookmarking_menu = 0
+    map <silent> <F9> :ToggleBookmark<CR>
+    map <silent> <F4> :NextBookmark<CR>
+    map <silent> <S-F4> :PreviousBookmark<CR>
+" }}}
+
+
+" {{{ calendar.vim plugin
+  nmap <Leader>sc :Colorizer<CR>
+" }}}
+
+" {{{ powerline.vim plugin
+    let g:Powerline_symbols = 'fancy'
+    nmap <Leader>r :PowerlineReloadColorscheme<CR>
+    autocmd BufWinEnter * call Pl#UpdateStatusline(1)
+" }}}
+
+
+
+
+
+
+" {{{ smarthome plugin
+    map <Home> :SmartHomeKey<CR>
+    imap <Home> <C-O>:SmartHomeKey<CR>
+" }}}
+
+" {{{ spacebox.vim plugin
+    nmap <leader>sm :SpaceBox<CR>
+" }}}
+
+" {{{ surround 使用说明
+    "    Normal mode
+    "    -----------
+    "        ds  - delete a surrounding
+    "        cs  - change a surrounding
+    "        ys  - add a surrounding
+    "        yS  - add a surrounding and place the surrounded text on a new line + indent it
+    "        yss - add a surrounding to the whole line
+    "        ySs - add a surrounding to the whole line, place it on a new line + indent it
+    "        ySS - same as ySs
+
+    "    Visual mode
+    "    -----------
+    "        s   - in visual mode, add a surrounding
+    "        S   - in visual mode, add a surrounding but place text on new line + indent it
+
+    "    Insert mode
+    "    -----------
+    "        <CTRL-s> - in insert mode, add a surrounding
+    "        <CTRL-s><CTRL-s> - in insert mode, add a new line + surrounding + indent
+    "        <CTRL-g>s - same as <CTRL-s>
+    "        <CTRL-g>S - same as <CTRL-s><CTRL-s>
+" }}}
+
+" {{{ vimExplorer.vim plugin
+    map <Leader>E :VE %:p:h<CR>
+" }}}
+
+
+" {{{ vim-bad-withespace plugin
+    "切换 高亮显示/隐藏 行尾空格
+    nmap <Leader>sh :ToggleBadWhitespace<CR>
+    "移除 行尾空格行尾
+    nmap <Leader>rh :EraseBadWhitespace <CR>
+" }}}
+
+" {{{ vimim.vim plugin
+    let g:vimim_map='c-bslash'
+    let g:vimim_punctuation=0
+    let g:vimim_cloud=1
+    let g:vimim_toggle="wubi,pinyi"
+" }}}
+
+" {{{ winmove.vim plugin
+    let g:wm_move_left  = '<a-h>'
+    let g:wm_move_down  = '<a-j>'
+    let g:wm_move_up    = '<a-k>'
+    let g:wm_move_right = '<a-l>'
+" }}}
+
+
+"""""""""""""""""""""""""""""""""""""""
+" Plugins Config End
+"""""""""""""""""""""""""""""""""""""""
+
+
+"nmap <leader>ed :!start "D:/Program Files/EditPlus 3/editplus.exe" -e %:p<CR>
+
+" Alt-Space is System menu
+"if has("gui")
+  "noremap <M-Space> :simalt ~<CR>
+  "inoremap <M-Space> <C-O>:simalt ~<CR>
+  "cnoremap <M-Space> <C-C>:simalt ~<CR>
+"endif
+
+
+
+"折叠相关的快捷键
+"zR Unfold all folded lines in file.
+"za Open/Close (toggle) a folded group of lines.
+"aA Open a Closed fold or close and open fold recursively.
+"zi 全部 展开/关闭 折叠
+"zo 展开当前光标所在行
+"zc close a folded group of lines
+"zC close all fold ed lines recursively
+"zM 关闭所有可折叠区域
+"map <F3> zo "打开折叠
+"map <F4> zc "关闭折叠
+"map <F5> zR "打开所有折叠
+"map <F6> zM "关闭所有折叠
+"常用的折叠快捷键：
+
+"这里就以indent和marker为例来讲讲吧，因为这两种用的比较多：
+
+"如果使用了indent方式，vim会自动的对大括号的中间部分进行折叠，我们可以直接使用这些现成的折叠成果。
+"在可折叠处（大括号中间）：
+
+"zc      折叠
+"zC     对所在范围内所有嵌套的折叠点进行折叠
+"zo      展开折叠
+"zO     对所在范围内所有嵌套的折叠点展开
+"[z       到当前打开的折叠的开始处。
+"]z       到当前打开的折叠的末尾处。
+"zj       向下移动。到达下一个折叠的开始处。关闭的折叠也被计入。
+"zk      向上移动到前一折叠的结束处。关闭的折叠也被计入。
+
+"当使用marker方式时，需要用标计来标识代码的折叠，系统默认是{{{和}}}(前面已做出说明)
+"我们可以使用下面的命令来创建和删除折叠：
+
+"zf 创建折叠，比如在marker方式下：
+"zf56G，创建从当前行起到56行的代码折叠；
+"10zf或10zf+或zf10↓，创建从当前行起到后10行的代码折叠。
+"10zf-或zf10↑，创建从当前行起到之前10行的代码折叠。
+"在括号处zf%，创建从当前行起到对应的匹配的括号上去（（），{}，[]，<>等）。
+"zd 删除 (delete) 在光标下的折叠。仅当 'foldmethod' 设为 "manual" 或 "marker" 时有效。
+"zD 循环删除 (Delete) 光标下的折叠，即嵌套删除折叠。
+         "仅当 'foldmethod' 设为 "manual" 或 "marker" 时有效。
+"zE 除去 (Eliminate) 窗口里“所有”的折叠。
+         "仅当 'foldmethod' 设为 "manual" 或 "marker" 时有效。"
+
+
+
+"启动时自动最大化
+"au GUIENTER * simalt~x
+au BufReadPost *.exe %!xxd
+
+""""""""""""""""""""""""""""""""""
+let g:VimrcLoaded = 1
+
+
+" vim : tabstop=4 shiftwidth=4 softtabstop=4 expandtab
