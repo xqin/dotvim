@@ -1,27 +1,41 @@
 set nocompatible
 behave mswin
 
-set guioptions+=c
-" gui menu
-set guioptions-=m
-set guioptions-=M
-" toolbar
-set guioptions-=t
-set guioptions-=T
-" right-hand scrollbar
-set guioptions-=r
-set guioptions-=R
-" left-hand scrollbar
-set guioptions-=l
-set guioptions-=L
-" bottom scrollbar
-set guioptions-=b
+if has('gui_running')
+	if has('menu')
+		let g:did_install_default_menus = 1
+		set guioptions-=m
+		set guioptions-=M
+	endif
+
+	if has('toolbar')
+		set guioptions-=T
+		set guioptions-=t
+	endif
+
+	" right-hand scrollbar
+	set guioptions-=r
+	set guioptions-=R
+
+	" left-hand scrollbar
+	set guioptions-=l
+	set guioptions-=L
+	" bottom scrollbar
+	set guioptions-=b
+endif
+
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " let $VIMFILES var
 """""""""""""""""""""""""""""""""""""""""""""""""
 let $VIMFILES = $VIM.'/vimfiles'
 if has('unix')
-    let $VIMFILES = '~/.vim'
+	let $VIMFILES = '~/.vim'
+	if !has('gui_running') && executable('wmctrl')
+		function! ToggleFullscreen()
+			call system("wmctrl -ir " . v:windowid . " -btoggle,fullscreen")
+		endfunction
+		map <silent> <F11> :call ToggleFullscreen()<CR>
+	endif
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""
@@ -31,8 +45,8 @@ let $VIMBALL = $VIMFILES.'/bundle'
 source $VIMBALL/vim-pathogen/autoload/pathogen.vim
 
 call pathogen#infect()
-syntax on
-filetype plugin indent on
+
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""
@@ -45,13 +59,13 @@ let g:mapleader = ","
 nmap <Leader>s :w<CR>
 map <C-S> :w<CR>
 
-"å…³é—­æ–‡ä»¶,å¦‚æœæ–‡ä»¶ä¿®æ”¹è¿‡åˆ™ä¸å…³é—­
+"¹Ø±ÕÎÄ¼ş,Èç¹ûÎÄ¼şĞŞ¸Ä¹ıÔò²»¹Ø±Õ
 nmap <Leader>w :bd<CR>
-"å¼ºåˆ¶å…³é—­æ–‡ä»¶
+"Ç¿ÖÆ¹Ø±ÕÎÄ¼ş
 nmap <Leader>W :bd!<CR>
-"é€€å‡º Vim
+"ÍË³ö Vim
 nmap <Leader>q :qall<CR>
-"å¼ºåˆ¶é€€å‡ºVim,æ”¾å¼ƒä»»ä½•æ”¹åŠ¨
+"Ç¿ÖÆÍË³öVim,·ÅÆúÈÎºÎ¸Ä¶¯
 nmap <Leader>Q :qall!<CR>
 
 map <Leader>e :tabnew $MYVIMRC<CR>
@@ -59,15 +73,15 @@ map <Leader>e :tabnew $MYVIMRC<CR>
 "Show highlighting groups for current word
 nmap <C-S-P> :call <SID>SynStack()<CR>
 function! <SID>SynStack()
-    if !exists("*synstack")
-        return
-    endif
-    echo map(synstack(line("."), col(".")), 'synIDattr(v:val, "name")')
+	if !exists("*synstack")
+		return
+	endif
+	echo map(synstack(line("."), col(".")), 'synIDattr(v:val, "name")')
 endfunction
 
-"å¿«é€Ÿè¿è¡Œå½“å‰æ–‡ä»¶
+"¿ìËÙÔËĞĞµ±Ç°ÎÄ¼ş
 map <leader>V :silent !%<CR>
-"å¿«é€Ÿåˆ é™¤æ•´è¡Œ
+"¿ìËÙÉ¾³ıÕûĞĞ
 map <leader>D dd
 
 
@@ -107,7 +121,7 @@ map <Leader>hi :noh<CR>
 map <Leader>u :e ++enc=utf-8<CR>
 map <Leader>su :set fileencoding=utf-8<CR>
 
-"åœ¨æ–°æ ‡ç­¾ä¸­æ‰“å¼€å½“å‰å…‰æ ‡æ‰€åœ¨çš„æ–‡ä»¶
+"ÔÚĞÂ±êÇ©ÖĞ´ò¿ªµ±Ç°¹â±êËùÔÚµÄÎÄ¼ş
 nmap <silent> <Leader>tn :tabnew <cword><CR>
 
 nnoremap <Leader>1 :set filetype=html<CR>
@@ -118,16 +132,12 @@ nnoremap <Leader>5 :set filetype=xhtml<CR>
 
 
 
-"æŸ¥æ‰¾å½“å‰é€‰åŒºé€‰ä¸­çš„æ–‡å­—,å‘ä¸‹
+"²éÕÒµ±Ç°Ñ¡ÇøÑ¡ÖĞµÄÎÄ×Ö,ÏòÏÂ
 :vnoremap <silent> <Leader>f y/<C-R>=escape(@", '\\/.*$^~[]')<CR><CR>
-"æŸ¥æ‰¾å½“å‰é€‰åŒºé€‰ä¸­çš„æ–‡å­—,å‘ä¸Š
+"²éÕÒµ±Ç°Ñ¡ÇøÑ¡ÖĞµÄÎÄ×Ö,ÏòÉÏ
 :vnoremap <silent> <Leader>F y?<C-R>=escape(@", '\\/.*$^~[]')<CR><CR>
 
 
-"next buffer
-nmap <s-j> :bnext<CR>
-"prev buffer
-nmap <s-k> :bprev<CR>
 
 
 "nnoremap <C-h> <C-w>h
@@ -137,11 +147,15 @@ nmap <s-k> :bprev<CR>
 
 nmap <leader>rr :syntax sync fromstart<CR>
 
-map <A-Enter> <Esc>:call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
 
 " {{{ Fast Tab Switch
-    map <C-Tab> :tabnext<CR>
-    map <C-S-Tab> :tabprev<CR>
+	nmap <c-j> :bnext<CR>
+	nmap <c-k> :bprev<CR>
+" }}}
+
+" {{{ Fast Tab Switch
+	map <C-Tab> :tabnext<CR>
+	map <C-S-Tab> :tabprev<CR>
 " }}}
 
 cmap <c-a> <Home>
@@ -159,14 +173,14 @@ cmap <C-V> <C-R>+
 cmap <S-Insert> <C-R>+
 
 
-":vimgrep /å¼¹å† ç›¸åº†/gj d:/mydocs/*/*.txt
-"å¦‚æœè¦åŒ…å«å­æ–‡ä»¶å¤¹ï¼Œåˆ™ç”¨
+":vimgrep /µ¯¹ÚÏàÇì/gj d:/mydocs/*/*.txt
+"Èç¹ûÒª°üº¬×ÓÎÄ¼ş¼Ğ£¬ÔòÓÃ
 
-":vimgrep /å¼¹å† ç›¸åº†/gj d:/mydocs/**/*.txt
-"æ‰“å¼€quickfixçª—å£æŸ¥çœ‹åŒ¹é…ç»“æœ
+":vimgrep /µ¯¹ÚÏàÇì/gj d:/mydocs/**/*.txt
+"´ò¿ªquickfix´°¿Ú²é¿´Æ¥Åä½á¹û
 ":cw
-"åœ¨è¾“å…¥æ¨¡å¼ä¸‹ç§»åŠ¨å…‰æ ‡,å½»åº•æŠ›å¼ƒæ–¹å‘é”®
-"è¡Œé¦–
+"ÔÚÊäÈëÄ£Ê½ÏÂÒÆ¶¯¹â±ê,³¹µ×Å×Æú·½Ïò¼ü
+"ĞĞÊ×
 "inoremap <C-a> <C-O>:SmartHomeKey<CR>
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
@@ -175,12 +189,9 @@ inoremap <C-j> <C-o>gj
 inoremap <C-k> <C-o>gk
 inoremap <C-l> <Right>
 
-inoremap <C-i> <C-O>o
-inoremap <A-i> <C-O>O
-
 function! MakeTmpFile(ext)
-    let s:fname = $TEMP.'/vim_tmp_'.abs(reltimestr(reltime())).'.'.a:ext
-    exec ':tabnew '.s:fname
+	let s:fname = $TEMP.'/vim_tmp_'.abs(reltimestr(reltime())).'.'.a:ext
+	exec ':tabnew '.s:fname
 endfunction
 
 map <Leader>n :call MakeTmpFile('html')<CR>
@@ -188,276 +199,227 @@ map <Leader>njs :call MakeTmpFile('js')<CR>
 map <Leader>ncss :call MakeTmpFile('css')<CR>
 
 
-"F2 æ˜¾ç¤º/éšè— èœå•/å·¥å…·æ 
-map <silent><F2> :if &guioptions =~# 'm' <Bar>
-        \set guioptions-=m <Bar>
-    \else <Bar>
-        \set guioptions+=m <Bar>
-    \endif<CR>
 
-
-
-"Shift+F2æ˜¾ç¤º/éšè—èœå•+æ ‡ç­¾æ 
-map <silent><S-F2> :if &showtabline==1 <Bar>
-        \set guioptions-=m <Bar>
-        \set showtabline=0 <Bar>
-    \else <Bar>
-        \set guioptions+=m <Bar>
-        \set showtabline=1 <Bar>
-    \endif<CR>
-
-
-" è®¾ç½®å…‰æ ‡é¢œè‰²
+" ÉèÖÃ¹â±êÑÕÉ«
 hi Cursor guifg=bg guibg=Green gui=NONE
-" è®¾ç½®æ’å…¥çŠ¶æ€ä¸‹å…‰æ ‡é¢œè‰²
+" ÉèÖÃ²åÈë×´Ì¬ÏÂ¹â±êÑÕÉ«
 hi CursorIM guifg=bg guibg=Blue gui=NONE
 
 
 if !exists('g:VimrcLoaded')
-    if has('gui_running')
-        "è§£å†³é‡æ–°åŠ è½½vimrcæ—¶é‡å›´VIMçª—å£ä½ç½®çš„é—®é¢˜
-            "è®¾ç½®VIMå¯åŠ¨æ—¶çš„çª—ä½“ä½ç½®
-            winpos 135 100
-            "è®¾ç½®çª—å£é«˜åº¦
-            set lines=52
-            "è®¾ç½®çª—å£å®½åº¦
-            set columns=151
-    else
-        "è®¾ç½®æ”¯æŒçš„é¢œè‰²æ•°
-        set t_Co=256
-    endif
-    color molokai
-    set encoding=utf-8
-    set fileencodings=utf-8,ucs-bom,default,chinese,big5,gbk,gb2312,cp936
-    "set guifont=Courier_New_for_Powerline:h12:cANSI
-    set guifont=Microsoft_YaHei_Mono_for_Powerl:h10:cGB2312
-    "set guifontwide=YaHei\ Consolas\ Hybrid:h11
+	"ÉèÖÃÖ§³ÖµÄÑÕÉ«Êı
+	set t_Co=256
+	winpos 135 100
+	set lines=38
+	set columns=124
 
-    set fileformat=unix
-    set fileformats=dos,unix,mac
-    set bsdir=buffer
-    set history=256
-    set ambiwidth=double
-    set linespace=0
-    set display=lastline
-    set autoread
-    set cursorline
-    set hidden
-    set browsedir=buffer
-    set autochdir
-    "æ˜¾ç¤ºå‘½ä»¤
-    set showcmd
-    "æ±‰å­—åŒå­—èŠ‚
-    set ambiwidth=double
+	color monokai
+	if has('gui_running') && has('libcall')
+		let g:MyVimLib = $VIMRUNTIME.'/gvimfullscreen.dll'
+		function ToggleFullScreen()
+			call libcallnr(g:MyVimLib, "ToggleFullScreen", 0)
+		endfunction
+		map <A-Enter> <Esc>:call ToggleFullScreen()<CR>
+		"map <A-Enter> <Esc>:call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
 
-    "ä¸Šä¸‹å¯è§†è¡Œæ•°
-    set scrolloff=6
-    "è‡ªåŠ¨ä¿å­˜æ–‡ä»¶
-    set autowrite
-    set nowritebackup
-    set nobackup
-    set noswapfile
-    "ä¸æ˜¾ç¤ºé¦–å±
-    "set shortmess=atI
-    set ignorecase
-    set incsearch
-    "å¼€å¯æœç´¢æ—¶é«˜äº®æœç´¢åˆ°çš„ç»“æœ
-    set hlsearch
-    "æœç´¢åˆ°ç»“å°¾æ—¶ä¸é‡æ–°æœç´¢
-    "set nowrapscan
-    set smartcase
-    "æ˜¾ç¤ºæ‹¬å·é…å¯¹æƒ…å†µ
-    set showmatch
-    "ä¸æ¢è¡Œ
-    set nowrap
-    "æ˜¾ç¤ºè¡Œå·
-    set number
-    set autoindent
-    set smartindent
-    set tabstop=4
-    set softtabstop=4
-    set shiftwidth=4
-    set expandtab
-    set smarttab
-    "retab  å°†tabè½¬æ¢ä¸ºç©ºæ ¼
-    "æ‰§è¡Œå¤–éƒ¨å‘½ä»¤æ—¶ç¦æ­¢æ¢å¤å±å¹•å†…å®¹
-    set norestorescreen
+		let g:VimAlpha = 240
+		function! SetAlpha(alpha)
+			let g:VimAlpha = g:VimAlpha + a:alpha
+			if g:VimAlpha < 180
+				let g:VimAlpha = 180
+			endif
+			if g:VimAlpha > 255
+				let g:VimAlpha = 255
+			endif
+			call libcall(g:MyVimLib, 'SetAlpha', g:VimAlpha)
+		endfunction
+		nmap <s-y> <Esc>:call SetAlpha(3)<CR>
+		nmap <s-t> <Esc>:call SetAlpha(-3)<CR>
 
-    "How many tenths of a second to blink
-    set mat=2
-    "å¼€å¯C/C++é£æ ¼çš„è‡ªåŠ¨ç¼©è¿›
-    set cin
-    "è®¾ç½®è‡ªåŠ¨ç¼©è¿›æ ¼å¼
-    set cino=:1g1t1(sus
-    "ç¦æ­¢é¼ æ ‡
-    "set selectmode=key
-    "å…³é—­é¼ æ ‡çš„æ”¯æŒ(å¦‚æœéœ€è¦å¼€å¯è®¾ç½®å€¼ä¸ºa)
-    set mouse=a
-    " Make the command-line completion better
-    set wildmenu
+		let g:VimTopMost = 0
+		function! SwitchVimTopMostMode()
+			if g:VimTopMost == 0
+				let g:VimTopMost = 1
+			else
+				let g:VimTopMost = 0
+			endif
+			call libcall(g:MyVimLib, 'EnableTopMost', g:VimTopMost)
+		endfunction
+		nmap <s-r> <Esc>:call SwitchVimTopMostMode()<CR>
+	endif
 
-    "æ˜¾ç¤ºç›¸å¯¹è¡Œå· (ä¸ä¸‹é¢çš„åªèƒ½æœ‰ä¸€ä¸ªç”Ÿæ•ˆ)
-    "set relativenumber
-    set helplang=cn,en
+	"Èç¹û°Ñ set encoding=utf-8 ·ÅÔÚ ToggleFullScreen Ç°Ãæ
+	"Ôò»áµ¼ÖÂÈ«ÆÁÇĞ»»¿ì½İ¼üÊ§Ğ§
+	set encoding=utf-8
+	set fileencodings=utf-8,ucs-bom,default,chinese,big5,gbk,gb2312,cp936
+	"set guifont=Courier_New_for_Powerline:h12:cANSI
+	set guifont=Microsoft_YaHei_Mono_for_Powerl:h10:cGB2312
+	"set guifontwide=YaHei\ Consolas\ Hybrid:h11
 
-    set shellquote=
-    set shellslash
-    set shellxquote=
-    set shellpipe=2>&1\|tee
-    set shellredir=>%s\ 2>&1
+	set fileformat=unix
+	set fileformats=dos,unix,mac
+	set bsdir=buffer
+	set history=256
+	set ambiwidth=double
+	set linespace=0
+	set display=lastline
+	set autoread
+	set cursorline
+	set hidden
+	set browsedir=buffer
+	set autochdir
+	"ÏÔÊ¾ÃüÁî
+	set showcmd
+	"ºº×ÖË«×Ö½Ú
+	set ambiwidth=double
 
-    "å‘å³æ»šåŠ¨20ä¸ªå­—ç¬¦çš„ä½ç½®
-    set sidescroll=20
+	"ÉÏÏÂ¿ÉÊÓĞĞÊı
+	set scrolloff=6
+	"×Ô¶¯±£´æÎÄ¼ş
+	set autowrite
+	set nowritebackup
+	set nobackup
+	set noswapfile
+	"²»ÏÔÊ¾Ê×ÆÁ
+	"set shortmess=atI
+	set ignorecase
+	set incsearch
+	"¿ªÆôËÑË÷Ê±¸ßÁÁËÑË÷µ½µÄ½á¹û
+	set hlsearch
+	"ËÑË÷µ½½áÎ²Ê±²»ÖØĞÂËÑË÷
+	"set nowrapscan
+	set smartcase
+	"ÏÔÊ¾À¨ºÅÅä¶ÔÇé¿ö
+	set showmatch
+	"²»»»ĞĞ
+	set nowrap
+	"ÏÔÊ¾ĞĞºÅ
+	set number
+	set autoindent
+	set smartindent
+	set tabstop=4
+	set softtabstop=4
+	set shiftwidth=4
+	set expandtab
+	set smarttab
+	"retab  ½«tab×ª»»Îª¿Õ¸ñ
+	"Ö´ĞĞÍâ²¿ÃüÁîÊ±½ûÖ¹»Ö¸´ÆÁÄ»ÄÚÈİ
+	set norestorescreen
 
-    set nolazyredraw
-    set textwidth=79
-    "
-    "set colorcolumn=85
+	"How many tenths of a second to blink
+	set mat=2
+	"¿ªÆôC/C++·ç¸ñµÄ×Ô¶¯Ëõ½ø
+	set cin
+	"ÉèÖÃ×Ô¶¯Ëõ½ø¸ñÊ½
+	set cino=:1g1t1(sus
+	"½ûÖ¹Êó±ê
+	"set selectmode=key
+	"¹Ø±ÕÊó±êµÄÖ§³Ö(Èç¹ûĞèÒª¿ªÆôÉèÖÃÖµÎªa)
+	set mouse=a
+	" Make the command-line completion better
+	set wildmenu
 
-    "æ˜¾ç¤ºç©ºç™½åŠTab
-    set list
-    set listchars=tab:\|\ ,extends:>,precedes:<
+	"ÏÔÊ¾Ïà¶ÔĞĞºÅ (ÓëÏÂÃæµÄÖ»ÄÜÓĞÒ»¸öÉúĞ§)
+	"set relativenumber
+	set helplang=cn,en
 
-    "è®¾ç½®åˆ é™¤æ—¶å¯å›é€€çš„å­—ç¬¦, ç¼©è¿›, ç»“æŸç¬¦, è¡Œé¦–
-    set backspace=indent,eol,start whichwrap+=<,>,[,],h,l
-    " é‡å¯åæ’¤é”€å†å²å¯ç”¨ persistent undo
-    set undofile
-    set undodir=$VIMFILES/undo/
-    set undolevels=1000 "maximum number of changes that can be undone
+	set shellquote=
+	set shellslash
+	set shellxquote=
+	set shellpipe=2>&1\|tee
+	set shellredir=>%s\ 2>&1
 
-    "set nobomb
-    "ä¸Windowså…±äº«å‰ªè´´æ¿
-    "set clipboard+=unnamed
+	"ÏòÓÒ¹ö¶¯20¸ö×Ö·ûµÄÎ»ÖÃ
+	set sidescroll=20
 
-    "è®¾ç½®ä»£ç æŠ˜å æ–¹å¼ä¸º æ‰‹å·¥  indent
-    "set foldmethod=manual
-    set foldmethod=indent
-    "è®¾ç½®ä»£ç å—æŠ˜å åæ˜¾ç¤ºçš„è¡Œæ•°
-    "set foldexpr=1
-    set foldlevel=3
+	set nolazyredraw
+	set textwidth=99999
 
-    "å…³é—­é”™è¯¯å£°éŸ³
-    set noerrorbells
-    set novisualbell
-    set t_vb=
-    set tm=500
+	"set colorcolumn=85
 
-    " alway show status bar
-    set laststatus=2
+	"ÏÔÊ¾¿Õ°×¼°Tab
+	set list
+	set listchars=tab:\|\ ,extends:>,precedes:<
 
+	"ÉèÖÃÉ¾³ıÊ±¿É»ØÍËµÄ×Ö·û, Ëõ½ø, ½áÊø·û, ĞĞÊ×
+	set backspace=indent,eol,start whichwrap+=<,>,[,],h,l
+	" ÖØÆôºó³·ÏúÀúÊ·¿ÉÓÃ persistent undo
+	set undofile
+	set undodir=$VIMFILES/undo/
+	set undolevels=1000 "maximum number of changes that can be undone
 
-    set laststatus=2
-    set statusline=\ %<%F[%1*%M%*%n%R%H]%6b\[0x%B\]\ %{strftime(\"%m-%d\ %H:%M\")}%=\ %y\ %0(%{&fileformat}\ [%{(&fenc\ ==\"\"?&enc:&fenc).(&bomb?\",BOM\":\"\")}]\ %6l:%3c/%L%)
+	"set nobomb
+	"ÓëWindows¹²Ïí¼ôÌù°å
+	"set clipboard+=unnamed
 
-    set sessionoptions=blank,buffers,curdir,folds,help,options,tabpages,winsize,slash,unix,resize
+	"ÉèÖÃ´úÂëÕÛµş·½Ê½Îª ÊÖ¹¤  indent
+	"set foldmethod=manual
+	set foldmethod=indent
+	"ÉèÖÃ´úÂë¿éÕÛµşºóÏÔÊ¾µÄĞĞÊı
+	"set foldexpr=1
+	set foldlevel=3
 
-    "è®¾ç½®å‘½ä»¤è¡Œçš„é«˜åº¦ä¸º1
-    set cmdheight=1
-    "å…³é—­æ ‡ç­¾æ 
-    set showtabline=0
+	"¹Ø±Õ´íÎóÉùÒô
+	set noerrorbells
+	set novisualbell
+	set t_vb=
+	set tm=500
 
-    "æ‰§è¡Œcmdå°†ç»“æœè¿”å›åœ¨æ–°tabä¸­
-    "tabe +r\!cmd
+	" alway show status bar
+	set laststatus=2
+	"set statusline=\ %<%F[%1*%M%*%n%R%H]%6b\[0x%B\]\ %{strftime(\"%m-%d\ %H:%M\")}%=\ %y\ %0(%{&fileformat}\ [%{(&fenc\ ==\"\"?&enc:&fenc).(&bomb?\",BOM\":\"\")}]\ %6l:%3c/%L%)
+
+	set sessionoptions=blank,buffers,curdir,folds,help,options,tabpages,winsize,slash,unix,resize
+
+	"ÉèÖÃÃüÁîĞĞµÄ¸ß¶ÈÎª1
+	set cmdheight=1
+	"¹Ø±Õ±êÇ©À¸
+	set showtabline=0
+
+	"Ö´ĞĞcmd½«½á¹û·µ»ØÔÚĞÂtabÖĞ
+	"tabe +r\!cmd
 endif
 
 
-if !exists('g:ToggleLoad')
-    let g:ToggleLoad = 1
-    if has('gui_running') && has('libcall')
-        let g:MyVimLib = 'gvimfullscreen.dll'
-        function! ToggleFullScreen()
-            call libcall(g:MyVimLib, 'ToggleFullScreen', -1)
-        endfunction
-        map <A-Enter> <Esc>:call ToggleFullScreen()<CR>
-        "nmap <F11> :call ToggleFullScreen()<CR>
-
-        let g:VimAlpha = 240
-        function! SetAlpha(alpha)
-            let g:VimAlpha = g:VimAlpha + a:alpha
-            if g:VimAlpha < 180
-                let g:VimAlpha = 180
-            endif
-            if g:VimAlpha > 255
-                let g:VimAlpha = 255
-            endif
-            call libcall(g:MyVimLib, 'SetAlpha', g:VimAlpha)
-        endfunction
-        nmap <s-y> <Esc>:call SetAlpha(3)<CR>
-        nmap <s-t> <Esc>:call SetAlpha(-3)<CR>
-
-        let g:VimTopMost = 0
-        function! SwitchVimTopMostMode()
-            if g:VimTopMost == 0
-                let g:VimTopMost = 1
-            else
-                let g:VimTopMost = 0
-            endif
-            call libcall(g:MyVimLib, 'EnableTopMost', g:VimTopMost)
-        endfunction
-        nmap <s-r> <Esc>:call SwitchVimTopMostMode()<CR>
-        """"""""""""""""""""""""""""""""""""""""""""
-        " Fast edit hosts file
-        """"""""""""""""""""""""""""""""""""""""""""
-        function! FlushDNS()
-            python import sys
-            exe 'python sys.argv = ["ipconfig /flushdns"]'
-            exe 'pyf '.g:svn_cmd_path
-        endfunction
-        :nmap <silent> <Leader>host :tabnew c:\windows\system32\drivers\etc\hosts<CR>
-        :nmap <silent> <Leader>dns :!ipconfig /flushdns<CR>
-        autocmd! bufwritepost hosts call FlushDNS()
+""""""""""""""""""""""""""""""""""""""""""""
+" Fast edit hosts file
+""""""""""""""""""""""""""""""""""""""""""""
+function! FlushDNS()
+	python import sys
+	exe 'python sys.argv = ["ipconfig /flushdns"]'
+	exe 'pyf '.g:svn_cmd_path
+endfunction
+:nmap <silent> <Leader>host :tabnew c:\windows\system32\drivers\etc\hosts<CR>
+:nmap <silent> <Leader>dns :!ipconfig /flushdns<CR>
+autocmd! bufwritepost hosts call FlushDNS()
 
 
-    else
-
-        "let g:fullscreen = 0
-
-        function! ToggleFullscreen()
-            "if g:fullscreen == 1
-                "let g:fullscreen = 0
-                "let mod = "remove"
-           "else
-                "let g:fullscreen = 1
-                "let mod = "add"
-            "endif
-            "call system("wmctrl -ir " . v:windowid . " -b " . mod . ",fullscreen")
-            if executable('wmctrl')
-                call system("wmctrl -ir " . v:windowid . " -btoggle,fullscreen")
-            endif
-        endfunction
-
-        map <silent> <F11> :call ToggleFullscreen()<CR>
-
-    endif
-endif
-
-
-"<c-w>+     <c-w>5+     å¢åŠ å½“å‰bufferçš„é«˜åº¦
-"<c-w>-     <c-w>5-     å‡å°‘å½“å‰bufferçš„é«˜åº¦
+"<c-w>+	 <c-w>5+	 Ôö¼Óµ±Ç°bufferµÄ¸ß¶È
+"<c-w>-	 <c-w>5-	 ¼õÉÙµ±Ç°bufferµÄ¸ß¶È
 
 """""""""""""""""""""""""""""""""""""""
 " Plugins Config Start
 """""""""""""""""""""""""""""""""""""""
 
 " {{{ MRU
-    let MRU_Add_Menu = 0
-    let MRU_Max_Entries = 500
-    let MRU_Window_Height = 20
-    nmap <Leader>f :MRU<CR>
+	let MRU_Add_Menu = 0
+	let MRU_Max_Entries = 500
+	let MRU_Window_Height = 20
+	nmap <Leader>f :MRU<CR>
 " }}}
 
 " {{{ NERD_commenter
 "   Turns the menu off
-    let NERDMenuMode = 0
+	let NERDMenuMode = 0
 " }}}
 
 " {{{ bookmarking.vim colorscheme
-    hi BookMarkHighLight guifg=#7F9845 guibg=#232526
-    "sign define bookmark text=-> texthl=BookMarkHighLight linehl=BookMarkHighLight
-    let g:bookmarking_menu = 0
-    map <silent> <F9> :ToggleBookmark<CR>
-    map <silent> <F4> :NextBookmark<CR>
-    map <silent> <S-F4> :PreviousBookmark<CR>
+	hi BookMarkHighLight guifg=#7F9845 guibg=#232526
+	"sign define bookmark text=-> texthl=BookMarkHighLight linehl=BookMarkHighLight
+	let g:bookmarking_menu = 0
+	map <silent> <F9> :ToggleBookmark<CR>
+	map <silent> <F4> :NextBookmark<CR>
+	map <silent> <S-F4> :PreviousBookmark<CR>
 " }}}
 
 
@@ -466,73 +428,62 @@ endif
 " }}}
 
 " {{{ powerline.vim plugin
-    let g:Powerline_symbols = 'fancy'
-    nmap <Leader>r :PowerlineReloadColorscheme<CR>
-    autocmd BufWinEnter * call Pl#UpdateStatusline(1)
+	let g:Powerline_symbols = 'fancy'
+	let g:Powerline_colorscheme = 'solarized256'
+	nmap <Leader>r :PowerlineReloadColorscheme<CR>
+	autocmd BufWinEnter * call Pl#UpdateStatusline(1)
 " }}}
 
-
-
-
-
-
 " {{{ smarthome plugin
-    map <Home> :SmartHomeKey<CR>
-    imap <Home> <C-O>:SmartHomeKey<CR>
+	map <Home> :SmartHomeKey<CR>
+	imap <Home> <C-O>:SmartHomeKey<CR>
 " }}}
 
 " {{{ spacebox.vim plugin
-    nmap <leader>sm :SpaceBox<CR>
+	nmap <leader>sm :SpaceBox<CR>
 " }}}
 
-" {{{ surround ä½¿ç”¨è¯´æ˜
-    "    Normal mode
-    "    -----------
-    "        ds  - delete a surrounding
-    "        cs  - change a surrounding
-    "        ys  - add a surrounding
-    "        yS  - add a surrounding and place the surrounded text on a new line + indent it
-    "        yss - add a surrounding to the whole line
-    "        ySs - add a surrounding to the whole line, place it on a new line + indent it
-    "        ySS - same as ySs
+" {{{ surround Ê¹ÓÃËµÃ÷
+	"	Normal mode
+	"	-----------
+	"		ds  - delete a surrounding
+	"		cs  - change a surrounding
+	"		ys  - add a surrounding
+	"		yS  - add a surrounding and place the surrounded text on a new line + indent it
+	"		yss - add a surrounding to the whole line
+	"		ySs - add a surrounding to the whole line, place it on a new line + indent it
+	"		ySS - same as ySs
 
-    "    Visual mode
-    "    -----------
-    "        s   - in visual mode, add a surrounding
-    "        S   - in visual mode, add a surrounding but place text on new line + indent it
+	"	Visual mode
+	"	-----------
+	"		s   - in visual mode, add a surrounding
+	"		S   - in visual mode, add a surrounding but place text on new line + indent it
 
-    "    Insert mode
-    "    -----------
-    "        <CTRL-s> - in insert mode, add a surrounding
-    "        <CTRL-s><CTRL-s> - in insert mode, add a new line + surrounding + indent
-    "        <CTRL-g>s - same as <CTRL-s>
-    "        <CTRL-g>S - same as <CTRL-s><CTRL-s>
+	"	Insert mode
+	"	-----------
+	"		<CTRL-s> - in insert mode, add a surrounding
+	"		<CTRL-s><CTRL-s> - in insert mode, add a new line + surrounding + indent
+	"		<CTRL-g>s - same as <CTRL-s>
+	"		<CTRL-g>S - same as <CTRL-s><CTRL-s>
 " }}}
 
 " {{{ vimExplorer.vim plugin
-    map <Leader>E :VE %:p:h<CR>
+	map <Leader>E :VE %:p:h<CR>
 " }}}
 
 
 " {{{ vim-bad-withespace plugin
-    "åˆ‡æ¢ é«˜äº®æ˜¾ç¤º/éšè— è¡Œå°¾ç©ºæ ¼
-    nmap <Leader>sh :ToggleBadWhitespace<CR>
-    "ç§»é™¤ è¡Œå°¾ç©ºæ ¼è¡Œå°¾
-    nmap <Leader>rh :EraseBadWhitespace <CR>
-" }}}
-
-" {{{ vimim.vim plugin
-    let g:vimim_map='c-bslash'
-    let g:vimim_punctuation=0
-    let g:vimim_cloud=1
-    let g:vimim_toggle="wubi,pinyi"
+	"ÇĞ»» ¸ßÁÁÏÔÊ¾/Òş²Ø ĞĞÎ²¿Õ¸ñ
+	nmap <Leader>sh :ToggleBadWhitespace<CR>
+	"ÒÆ³ı ĞĞÎ²¿Õ¸ñĞĞÎ²
+	nmap <Leader>rh :EraseBadWhitespace <CR>
 " }}}
 
 " {{{ winmove.vim plugin
-    let g:wm_move_left  = '<a-h>'
-    let g:wm_move_down  = '<a-j>'
-    let g:wm_move_up    = '<a-k>'
-    let g:wm_move_right = '<a-l>'
+	let g:wm_move_left  = '<a-h>'
+	let g:wm_move_down  = '<a-j>'
+	let g:wm_move_up	= '<a-k>'
+	let g:wm_move_right = '<a-l>'
 " }}}
 
 
@@ -552,57 +503,57 @@ endif
 
 
 
-"æŠ˜å ç›¸å…³çš„å¿«æ·é”®
+"ÕÛµşÏà¹ØµÄ¿ì½İ¼ü
 "zR Unfold all folded lines in file.
 "za Open/Close (toggle) a folded group of lines.
 "aA Open a Closed fold or close and open fold recursively.
-"zi å…¨éƒ¨ å±•å¼€/å…³é—­ æŠ˜å 
-"zo å±•å¼€å½“å‰å…‰æ ‡æ‰€åœ¨è¡Œ
+"zi È«²¿ Õ¹¿ª/¹Ø±Õ ÕÛµş
+"zo Õ¹¿ªµ±Ç°¹â±êËùÔÚĞĞ
 "zc close a folded group of lines
 "zC close all fold ed lines recursively
-"zM å…³é—­æ‰€æœ‰å¯æŠ˜å åŒºåŸŸ
-"map <F3> zo "æ‰“å¼€æŠ˜å 
-"map <F4> zc "å…³é—­æŠ˜å 
-"map <F5> zR "æ‰“å¼€æ‰€æœ‰æŠ˜å 
-"map <F6> zM "å…³é—­æ‰€æœ‰æŠ˜å 
-"å¸¸ç”¨çš„æŠ˜å å¿«æ·é”®ï¼š
+"zM ¹Ø±ÕËùÓĞ¿ÉÕÛµşÇøÓò
+"map <F3> zo "´ò¿ªÕÛµş
+"map <F4> zc "¹Ø±ÕÕÛµş
+"map <F5> zR "´ò¿ªËùÓĞÕÛµş
+"map <F6> zM "¹Ø±ÕËùÓĞÕÛµş
+"³£ÓÃµÄÕÛµş¿ì½İ¼ü£º
 
-"è¿™é‡Œå°±ä»¥indentå’Œmarkerä¸ºä¾‹æ¥è®²è®²å§ï¼Œå› ä¸ºè¿™ä¸¤ç§ç”¨çš„æ¯”è¾ƒå¤šï¼š
+"ÕâÀï¾ÍÒÔindentºÍmarkerÎªÀıÀ´½²½²°É£¬ÒòÎªÕâÁ½ÖÖÓÃµÄ±È½Ï¶à£º
 
-"å¦‚æœä½¿ç”¨äº†indentæ–¹å¼ï¼Œvimä¼šè‡ªåŠ¨çš„å¯¹å¤§æ‹¬å·çš„ä¸­é—´éƒ¨åˆ†è¿›è¡ŒæŠ˜å ï¼Œæˆ‘ä»¬å¯ä»¥ç›´æ¥ä½¿ç”¨è¿™äº›ç°æˆçš„æŠ˜å æˆæœã€‚
-"åœ¨å¯æŠ˜å å¤„ï¼ˆå¤§æ‹¬å·ä¸­é—´ï¼‰ï¼š
+"Èç¹ûÊ¹ÓÃÁËindent·½Ê½£¬vim»á×Ô¶¯µÄ¶Ô´óÀ¨ºÅµÄÖĞ¼ä²¿·Ö½øĞĞÕÛµş£¬ÎÒÃÇ¿ÉÒÔÖ±½ÓÊ¹ÓÃÕâĞ©ÏÖ³ÉµÄÕÛµş³É¹û¡£
+"ÔÚ¿ÉÕÛµş´¦£¨´óÀ¨ºÅÖĞ¼ä£©£º
 
-"zc      æŠ˜å 
-"zC     å¯¹æ‰€åœ¨èŒƒå›´å†…æ‰€æœ‰åµŒå¥—çš„æŠ˜å ç‚¹è¿›è¡ŒæŠ˜å 
-"zo      å±•å¼€æŠ˜å 
-"zO     å¯¹æ‰€åœ¨èŒƒå›´å†…æ‰€æœ‰åµŒå¥—çš„æŠ˜å ç‚¹å±•å¼€
-"[z       åˆ°å½“å‰æ‰“å¼€çš„æŠ˜å çš„å¼€å§‹å¤„ã€‚
-"]z       åˆ°å½“å‰æ‰“å¼€çš„æŠ˜å çš„æœ«å°¾å¤„ã€‚
-"zj       å‘ä¸‹ç§»åŠ¨ã€‚åˆ°è¾¾ä¸‹ä¸€ä¸ªæŠ˜å çš„å¼€å§‹å¤„ã€‚å…³é—­çš„æŠ˜å ä¹Ÿè¢«è®¡å…¥ã€‚
-"zk      å‘ä¸Šç§»åŠ¨åˆ°å‰ä¸€æŠ˜å çš„ç»“æŸå¤„ã€‚å…³é—­çš„æŠ˜å ä¹Ÿè¢«è®¡å…¥ã€‚
+"zc	  ÕÛµş
+"zC	 ¶ÔËùÔÚ·¶Î§ÄÚËùÓĞÇ¶Ì×µÄÕÛµşµã½øĞĞÕÛµş
+"zo	  Õ¹¿ªÕÛµş
+"zO	 ¶ÔËùÔÚ·¶Î§ÄÚËùÓĞÇ¶Ì×µÄÕÛµşµãÕ¹¿ª
+"[z	   µ½µ±Ç°´ò¿ªµÄÕÛµşµÄ¿ªÊ¼´¦¡£
+"]z	   µ½µ±Ç°´ò¿ªµÄÕÛµşµÄÄ©Î²´¦¡£
+"zj	   ÏòÏÂÒÆ¶¯¡£µ½´ïÏÂÒ»¸öÕÛµşµÄ¿ªÊ¼´¦¡£¹Ø±ÕµÄÕÛµşÒ²±»¼ÆÈë¡£
+"zk	  ÏòÉÏÒÆ¶¯µ½Ç°Ò»ÕÛµşµÄ½áÊø´¦¡£¹Ø±ÕµÄÕÛµşÒ²±»¼ÆÈë¡£
 
-"å½“ä½¿ç”¨markeræ–¹å¼æ—¶ï¼Œéœ€è¦ç”¨æ ‡è®¡æ¥æ ‡è¯†ä»£ç çš„æŠ˜å ï¼Œç³»ç»Ÿé»˜è®¤æ˜¯{{{å’Œ}}}(å‰é¢å·²åšå‡ºè¯´æ˜)
-"æˆ‘ä»¬å¯ä»¥ä½¿ç”¨ä¸‹é¢çš„å‘½ä»¤æ¥åˆ›å»ºå’Œåˆ é™¤æŠ˜å ï¼š
+"µ±Ê¹ÓÃmarker·½Ê½Ê±£¬ĞèÒªÓÃ±ê¼ÆÀ´±êÊ¶´úÂëµÄÕÛµş£¬ÏµÍ³Ä¬ÈÏÊÇ{{{ºÍ}}}(Ç°ÃæÒÑ×ö³öËµÃ÷)
+"ÎÒÃÇ¿ÉÒÔÊ¹ÓÃÏÂÃæµÄÃüÁîÀ´´´½¨ºÍÉ¾³ıÕÛµş£º
 
-"zf åˆ›å»ºæŠ˜å ï¼Œæ¯”å¦‚åœ¨markeræ–¹å¼ä¸‹ï¼š
-"zf56Gï¼Œåˆ›å»ºä»å½“å‰è¡Œèµ·åˆ°56è¡Œçš„ä»£ç æŠ˜å ï¼›
-"10zfæˆ–10zf+æˆ–zf10â†“ï¼Œåˆ›å»ºä»å½“å‰è¡Œèµ·åˆ°å10è¡Œçš„ä»£ç æŠ˜å ã€‚
-"10zf-æˆ–zf10â†‘ï¼Œåˆ›å»ºä»å½“å‰è¡Œèµ·åˆ°ä¹‹å‰10è¡Œçš„ä»£ç æŠ˜å ã€‚
-"åœ¨æ‹¬å·å¤„zf%ï¼Œåˆ›å»ºä»å½“å‰è¡Œèµ·åˆ°å¯¹åº”çš„åŒ¹é…çš„æ‹¬å·ä¸Šå»ï¼ˆï¼ˆï¼‰ï¼Œ{}ï¼Œ[]ï¼Œ<>ç­‰ï¼‰ã€‚
-"zd åˆ é™¤ (delete) åœ¨å…‰æ ‡ä¸‹çš„æŠ˜å ã€‚ä»…å½“ 'foldmethod' è®¾ä¸º "manual" æˆ– "marker" æ—¶æœ‰æ•ˆã€‚
-"zD å¾ªç¯åˆ é™¤ (Delete) å…‰æ ‡ä¸‹çš„æŠ˜å ï¼Œå³åµŒå¥—åˆ é™¤æŠ˜å ã€‚
-         "ä»…å½“ 'foldmethod' è®¾ä¸º "manual" æˆ– "marker" æ—¶æœ‰æ•ˆã€‚
-"zE é™¤å» (Eliminate) çª—å£é‡Œâ€œæ‰€æœ‰â€çš„æŠ˜å ã€‚
-         "ä»…å½“ 'foldmethod' è®¾ä¸º "manual" æˆ– "marker" æ—¶æœ‰æ•ˆã€‚"
+"zf ´´½¨ÕÛµş£¬±ÈÈçÔÚmarker·½Ê½ÏÂ£º
+"zf56G£¬´´½¨´Óµ±Ç°ĞĞÆğµ½56ĞĞµÄ´úÂëÕÛµş£»
+"10zf»ò10zf+»òzf10¡ı£¬´´½¨´Óµ±Ç°ĞĞÆğµ½ºó10ĞĞµÄ´úÂëÕÛµş¡£
+"10zf-»òzf10¡ü£¬´´½¨´Óµ±Ç°ĞĞÆğµ½Ö®Ç°10ĞĞµÄ´úÂëÕÛµş¡£
+"ÔÚÀ¨ºÅ´¦zf%£¬´´½¨´Óµ±Ç°ĞĞÆğµ½¶ÔÓ¦µÄÆ¥ÅäµÄÀ¨ºÅÉÏÈ¥£¨£¨£©£¬{}£¬[]£¬<>µÈ£©¡£
+"zd É¾³ı (delete) ÔÚ¹â±êÏÂµÄÕÛµş¡£½öµ± 'foldmethod' ÉèÎª "manual" »ò "marker" Ê±ÓĞĞ§¡£
+"zD Ñ­»·É¾³ı (Delete) ¹â±êÏÂµÄÕÛµş£¬¼´Ç¶Ì×É¾³ıÕÛµş¡£
+		 "½öµ± 'foldmethod' ÉèÎª "manual" »ò "marker" Ê±ÓĞĞ§¡£
+"zE ³ıÈ¥ (Eliminate) ´°¿ÚÀï¡°ËùÓĞ¡±µÄÕÛµş¡£
+		 "½öµ± 'foldmethod' ÉèÎª "manual" »ò "marker" Ê±ÓĞĞ§¡£"
 
 
-
-"å¯åŠ¨æ—¶è‡ªåŠ¨æœ€å¤§åŒ–
+"Æô¶¯Ê±×Ô¶¯×î´ó»¯
 "au GUIENTER * simalt~x
 au BufReadPost *.exe %!xxd
 
 """"""""""""""""""""""""""""""""""
+syntax on
+filetype plugin indent on
 let g:VimrcLoaded = 1
 
-
-" vim : tabstop=4 shiftwidth=4 softtabstop=4 expandtab
+" vim: tabstop=4 shiftwidth=4 softtabstop=4 noexpandtab
