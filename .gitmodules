@@ -1,0 +1,69 @@
+[submodule "bundle/auto_mkdir"]
+	path = bundle/auto_mkdir
+	url = https://github.com/vim-scripts/auto_mkdir.git
+[submodule "bundle/bad-whitespace"]
+	path = bundle/bad-whitespace
+	url = https://github.com/vim-scripts/bad-whitespace.git
+[submodule "bundle/Color-Scheme-Explorer"]
+	path = bundle/Color-Scheme-Explorer
+	url = https://github.com/vim-scripts/Color-Scheme-Explorer.git
+[submodule "bundle/Lite-Tab-Page"]
+	path = bundle/Lite-Tab-Page
+	url = https://github.com/vim-scripts/Lite-Tab-Page.git
+[submodule "bundle/matchit"]
+	path = bundle/matchit
+	url = https://github.com/vim-scripts/matchit.zip.git
+[submodule "bundle/MatchTag"]
+	path = bundle/MatchTag
+	url = https://github.com/vim-scripts/MatchTag.git
+[submodule "bundle/molokai"]
+	path = bundle/molokai
+	url = https://github.com/vim-scripts/molokai.git
+[submodule "bundle/mru"]
+	path = bundle/mru
+	url = https://github.com/vim-scripts/mru.vim.git
+[submodule "bundle/Smart-Home-Key"]
+	path = bundle/Smart-Home-Key
+	url = https://github.com/vim-scripts/Smart-Home-Key.git
+[submodule "bundle/VimExplorer"]
+	path = bundle/VimExplorer
+	url = https://github.com/vim-scripts/VimExplorer.git
+[submodule "bundle/WinMove"]
+	path = bundle/WinMove
+	url = https://github.com/vim-scripts/WinMove.git
+[submodule "bundle/VimBookmarking"]
+	path = bundle/VimBookmarking
+	url = https://github.com/dterei/VimBookmarking.git
+[submodule "bundle/vim-pathogen"]
+	path = bundle/vim-pathogen
+	url = https://github.com/tpope/vim-pathogen.git
+[submodule "bundle/colorizer"]
+	path = bundle/colorizer
+	url = https://github.com/lilydjwg/colorizer.git
+[submodule "bundle/nerdcommenter"]
+	path = bundle/nerdcommenter
+	url = https://github.com/scrooloose/nerdcommenter.git
+[submodule "bundle/nerdtree"]
+	path = bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
+[submodule "bundle/vim-autoclose"]
+	path = bundle/vim-autoclose
+	url = https://github.com/Townk/vim-autoclose
+[submodule "bundle/vim-powerline"]
+	path = bundle/vim-powerline
+	url = https://github.com/Lokaltog/vim-powerline.git
+[submodule "bundle/vim-repeat"]
+	path = bundle/vim-repeat
+	url = https://github.com/tpope/vim-repeat.git
+[submodule "bundle/vim-spacebox"]
+	path = bundle/vim-spacebox
+	url = https://github.com/glts/vim-spacebox.git
+[submodule "bundle/vim-surround"]
+	path = bundle/vim-surround
+	url = https://github.com/tpope/vim-surround.git
+[submodule "bundle/zencoding-vim"]
+	path = bundle/zencoding-vim
+	url = https://github.com/mattn/zencoding-vim.git
+[submodule "bundle/vimdoc_cn"]
+	path = bundle/vimdoc_cn
+	url = https://github.com/jkeylu/vimdoc_cn.git
