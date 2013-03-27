@@ -41,6 +41,7 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""
 " init vim-pathogen plugin
 """""""""""""""""""""""""""""""""""""""""""""""""
+let $MYVIMRC = $VIMFILES.'/vimrc'
 let $VIMBALL = $VIMFILES.'/bundle'
 source $VIMBALL/vim-pathogen/autoload/pathogen.vim
 
@@ -299,7 +300,7 @@ if !exists('g:VimrcLoaded')
 	set tabstop=4
 	set softtabstop=4
 	set shiftwidth=4
-	set expandtab
+	"set expandtab
 	set smarttab
 	"retab  将tab转换为空格
 	"执行外部命令时禁止恢复屏幕内容
@@ -320,7 +321,8 @@ if !exists('g:VimrcLoaded')
 
 	"显示相对行号 (与下面的只能有一个生效)
 	"set relativenumber
-	set helplang=cn,en
+	set helplang=cn
+	:language message zh_CN.UTF-8
 
 	set shellquote=
 	set shellslash
