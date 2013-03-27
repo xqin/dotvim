@@ -99,7 +99,6 @@ nnoremap k gk
 nmap Q <Nop>
 vmap Q <Nop>
 map! <F1> <Nop>
-map <A-w> :set wrap!<CR>
 
 nnoremap ; :
 
@@ -550,6 +549,7 @@ autocmd! bufwritepost hosts call FlushDNS()
 "启动时自动最大化
 "au GUIENTER * simalt~x
 au BufReadPost *.exe %!xxd
+map <A-w> :set wrap!<CR>
 
 """"""""""""""""""""""""""""""""""
 syntax on
