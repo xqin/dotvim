@@ -67,3 +67,6 @@
 [submodule "bundle/vimdoc_cn"]
 	path = bundle/vimdoc_cn
 	url = https://github.com/jkeylu/vimdoc_cn.git
+[submodule "bundle/netrw"]
+	path = bundle/netrw
+	url = https://github.com/vim-scripts/netrw.vim.git
