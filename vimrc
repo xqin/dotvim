@@ -253,8 +253,12 @@ if !exists('g:VimrcLoaded')
 	set encoding=utf-8
 	set fileencodings=utf-8,ucs-bom,default,chinese,big5,gbk,gb2312,cp936
 	"set guifont=Courier_New_for_Powerline:h12:cANSI
-	set guifont=Microsoft_YaHei_Mono_for_Powerl:h10:cGB2312
-	"set guifontwide=YaHei\ Consolas\ Hybrid:h11
+	if has('unix')
+		set guifont=Microsoft\ YaHei\ Mono\ for\ Powerline\ 11
+		"set guifont=Microsoft_YaHei_Mono_for_Powerline:h12:cGB2312
+	else
+		set guifont=Microsoft_YaHei_Mono_for_Powerl:h10:cGB2312
+	endif
 
 	set fileformat=unix
 	set fileformats=dos,unix,mac
@@ -322,7 +326,9 @@ if !exists('g:VimrcLoaded')
 	"显示相对行号 (与下面的只能有一个生效)
 	"set relativenumber
 	set helplang=cn
-	:language message zh_CN.UTF-8
+	if !has('unix')
+		language message zh_CN.UTF-8
+	endif
 
 	set shellquote=
 	set shellslash
