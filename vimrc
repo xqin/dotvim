@@ -60,13 +60,13 @@ let g:mapleader = ","
 nmap <Leader>s :w<CR>
 map <C-S> :w<CR>
 
-"¹Ø±ÕÎÄ¼ş,Èç¹ûÎÄ¼şĞŞ¸Ä¹ıÔò²»¹Ø±Õ
+"å…³é—­æ–‡ä»¶,å¦‚æœæ–‡ä»¶ä¿®æ”¹è¿‡åˆ™ä¸å…³é—­
 nmap <Leader>w :bd<CR>
-"Ç¿ÖÆ¹Ø±ÕÎÄ¼ş
+"å¼ºåˆ¶å…³é—­æ–‡ä»¶
 nmap <Leader>W :bd!<CR>
-"ÍË³ö Vim
+"é€€å‡º Vim
 nmap <Leader>q :qall<CR>
-"Ç¿ÖÆÍË³öVim,·ÅÆúÈÎºÎ¸Ä¶¯
+"å¼ºåˆ¶é€€å‡ºVim,æ”¾å¼ƒä»»ä½•æ”¹åŠ¨
 nmap <Leader>Q :qall!<CR>
 
 map <Leader>e :tabnew $MYVIMRC<CR>
@@ -80,9 +80,9 @@ function! <SID>SynStack()
 	echo map(synstack(line("."), col(".")), 'synIDattr(v:val, "name")')
 endfunction
 
-"¿ìËÙÔËĞĞµ±Ç°ÎÄ¼ş
+"å¿«é€Ÿè¿è¡Œå½“å‰æ–‡ä»¶
 map <leader>V :silent !%<CR>
-"¿ìËÙÉ¾³ıÕûĞĞ
+"å¿«é€Ÿåˆ é™¤æ•´è¡Œ
 map <leader>D dd
 
 
@@ -121,7 +121,7 @@ map <Leader>hi :noh<CR>
 map <Leader>u :e ++enc=utf-8<CR>
 map <Leader>su :set fileencoding=utf-8<CR>
 
-"ÔÚĞÂ±êÇ©ÖĞ´ò¿ªµ±Ç°¹â±êËùÔÚµÄÎÄ¼ş
+"åœ¨æ–°æ ‡ç­¾ä¸­æ‰“å¼€å½“å‰å…‰æ ‡æ‰€åœ¨çš„æ–‡ä»¶
 nmap <silent> <Leader>tn :tabnew <cword><CR>
 
 nnoremap <Leader>1 :set filetype=html<CR>
@@ -132,9 +132,9 @@ nnoremap <Leader>5 :set filetype=xhtml<CR>
 
 
 
-"²éÕÒµ±Ç°Ñ¡ÇøÑ¡ÖĞµÄÎÄ×Ö,ÏòÏÂ
+"æŸ¥æ‰¾å½“å‰é€‰åŒºé€‰ä¸­çš„æ–‡å­—,å‘ä¸‹
 :vnoremap <silent> <Leader>f y/<C-R>=escape(@", '\\/.*$^~[]')<CR><CR>
-"²éÕÒµ±Ç°Ñ¡ÇøÑ¡ÖĞµÄÎÄ×Ö,ÏòÉÏ
+"æŸ¥æ‰¾å½“å‰é€‰åŒºé€‰ä¸­çš„æ–‡å­—,å‘ä¸Š
 :vnoremap <silent> <Leader>F y?<C-R>=escape(@", '\\/.*$^~[]')<CR><CR>
 
 
@@ -173,14 +173,14 @@ cmap <C-V> <C-R>+
 cmap <S-Insert> <C-R>+
 
 
-":vimgrep /µ¯¹ÚÏàÇì/gj d:/mydocs/*/*.txt
-"Èç¹ûÒª°üº¬×ÓÎÄ¼ş¼Ğ£¬ÔòÓÃ
+":vimgrep /å¼¹å† ç›¸åº†/gj d:/mydocs/*/*.txt
+"å¦‚æœè¦åŒ…å«å­æ–‡ä»¶å¤¹ï¼Œåˆ™ç”¨
 
-":vimgrep /µ¯¹ÚÏàÇì/gj d:/mydocs/**/*.txt
-"´ò¿ªquickfix´°¿Ú²é¿´Æ¥Åä½á¹û
+":vimgrep /å¼¹å† ç›¸åº†/gj d:/mydocs/**/*.txt
+"æ‰“å¼€quickfixçª—å£æŸ¥çœ‹åŒ¹é…ç»“æœ
 ":cw
-"ÔÚÊäÈëÄ£Ê½ÏÂÒÆ¶¯¹â±ê,³¹µ×Å×Æú·½Ïò¼ü
-"ĞĞÊ×
+"åœ¨è¾“å…¥æ¨¡å¼ä¸‹ç§»åŠ¨å…‰æ ‡,å½»åº•æŠ›å¼ƒæ–¹å‘é”®
+"è¡Œé¦–
 "inoremap <C-a> <C-O>:SmartHomeKey<CR>
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
@@ -200,14 +200,14 @@ map <Leader>ncss :call MakeTmpFile('css')<CR>
 
 
 
-" ÉèÖÃ¹â±êÑÕÉ«
+" è®¾ç½®å…‰æ ‡é¢œè‰²
 hi Cursor guifg=bg guibg=Green gui=NONE
-" ÉèÖÃ²åÈë×´Ì¬ÏÂ¹â±êÑÕÉ«
+" è®¾ç½®æ’å…¥çŠ¶æ€ä¸‹å…‰æ ‡é¢œè‰²
 hi CursorIM guifg=bg guibg=Blue gui=NONE
 
 
 if !exists('g:VimrcLoaded')
-	"ÉèÖÃÖ§³ÖµÄÑÕÉ«Êı
+	"è®¾ç½®æ”¯æŒçš„é¢œè‰²æ•°
 	set t_Co=256
 	winpos 135 100
 	set lines=38
@@ -248,8 +248,8 @@ if !exists('g:VimrcLoaded')
 		nmap <s-r> <Esc>:call SwitchVimTopMostMode()<CR>
 	endif
 
-	"Èç¹û°Ñ set encoding=utf-8 ·ÅÔÚ ToggleFullScreen Ç°Ãæ
-	"Ôò»áµ¼ÖÂÈ«ÆÁÇĞ»»¿ì½İ¼üÊ§Ğ§
+	"å¦‚æœæŠŠ set encoding=utf-8 æ”¾åœ¨ ToggleFullScreen å‰é¢
+	"åˆ™ä¼šå¯¼è‡´å…¨å±åˆ‡æ¢å¿«æ·é”®å¤±æ•ˆ
 	set encoding=utf-8
 	set fileencodings=utf-8,ucs-bom,default,chinese,big5,gbk,gb2312,cp936
 	"set guifont=Courier_New_for_Powerline:h12:cANSI
@@ -272,32 +272,32 @@ if !exists('g:VimrcLoaded')
 	set hidden
 	set browsedir=buffer
 	set autochdir
-	"ÏÔÊ¾ÃüÁî
+	"æ˜¾ç¤ºå‘½ä»¤
 	set showcmd
-	"ºº×ÖË«×Ö½Ú
+	"æ±‰å­—åŒå­—èŠ‚
 	set ambiwidth=double
 
-	"ÉÏÏÂ¿ÉÊÓĞĞÊı
+	"ä¸Šä¸‹å¯è§†è¡Œæ•°
 	set scrolloff=6
-	"×Ô¶¯±£´æÎÄ¼ş
+	"è‡ªåŠ¨ä¿å­˜æ–‡ä»¶
 	set autowrite
 	set nowritebackup
 	set nobackup
 	set noswapfile
-	"²»ÏÔÊ¾Ê×ÆÁ
+	"ä¸æ˜¾ç¤ºé¦–å±
 	"set shortmess=atI
 	set ignorecase
 	set incsearch
-	"¿ªÆôËÑË÷Ê±¸ßÁÁËÑË÷µ½µÄ½á¹û
+	"å¼€å¯æœç´¢æ—¶é«˜äº®æœç´¢åˆ°çš„ç»“æœ
 	set hlsearch
-	"ËÑË÷µ½½áÎ²Ê±²»ÖØĞÂËÑË÷
+	"æœç´¢åˆ°ç»“å°¾æ—¶ä¸é‡æ–°æœç´¢
 	"set nowrapscan
 	set smartcase
-	"ÏÔÊ¾À¨ºÅÅä¶ÔÇé¿ö
+	"æ˜¾ç¤ºæ‹¬å·é…å¯¹æƒ…å†µ
 	set showmatch
-	"²»»»ĞĞ
+	"ä¸æ¢è¡Œ
 	set nowrap
-	"ÏÔÊ¾ĞĞºÅ
+	"æ˜¾ç¤ºè¡Œå·
 	set number
 	set autoindent
 	set smartindent
@@ -306,24 +306,24 @@ if !exists('g:VimrcLoaded')
 	set shiftwidth=4
 	"set expandtab
 	set smarttab
-	"retab  ½«tab×ª»»Îª¿Õ¸ñ
-	"Ö´ĞĞÍâ²¿ÃüÁîÊ±½ûÖ¹»Ö¸´ÆÁÄ»ÄÚÈİ
+	"retab  å°†tabè½¬æ¢ä¸ºç©ºæ ¼
+	"æ‰§è¡Œå¤–éƒ¨å‘½ä»¤æ—¶ç¦æ­¢æ¢å¤å±å¹•å†…å®¹
 	set norestorescreen
 
 	"How many tenths of a second to blink
 	set mat=2
-	"¿ªÆôC/C++·ç¸ñµÄ×Ô¶¯Ëõ½ø
+	"å¼€å¯C/C++é£æ ¼çš„è‡ªåŠ¨ç¼©è¿›
 	set cin
-	"ÉèÖÃ×Ô¶¯Ëõ½ø¸ñÊ½
+	"è®¾ç½®è‡ªåŠ¨ç¼©è¿›æ ¼å¼
 	set cino=:1g1t1(sus
-	"½ûÖ¹Êó±ê
+	"ç¦æ­¢é¼ æ ‡
 	"set selectmode=key
-	"¹Ø±ÕÊó±êµÄÖ§³Ö(Èç¹ûĞèÒª¿ªÆôÉèÖÃÖµÎªa)
+	"å…³é—­é¼ æ ‡çš„æ”¯æŒ(å¦‚æœéœ€è¦å¼€å¯è®¾ç½®å€¼ä¸ºa)
 	set mouse=a
 	" Make the command-line completion better
 	set wildmenu
 
-	"ÏÔÊ¾Ïà¶ÔĞĞºÅ (ÓëÏÂÃæµÄÖ»ÄÜÓĞÒ»¸öÉúĞ§)
+	"æ˜¾ç¤ºç›¸å¯¹è¡Œå· (ä¸ä¸‹é¢çš„åªèƒ½æœ‰ä¸€ä¸ªç”Ÿæ•ˆ)
 	"set relativenumber
 	set helplang=cn
 	if !has('unix')
@@ -336,7 +336,7 @@ if !exists('g:VimrcLoaded')
 	set shellpipe=2>&1\|tee
 	set shellredir=>%s\ 2>&1
 
-	"ÏòÓÒ¹ö¶¯20¸ö×Ö·ûµÄÎ»ÖÃ
+	"å‘å³æ»šåŠ¨20ä¸ªå­—ç¬¦çš„ä½ç½®
 	set sidescroll=20
 
 	set nolazyredraw
@@ -344,29 +344,29 @@ if !exists('g:VimrcLoaded')
 
 	"set colorcolumn=85
 
-	"ÏÔÊ¾¿Õ°×¼°Tab
+	"æ˜¾ç¤ºç©ºç™½åŠTab
 	set list
 	set listchars=tab:\|\ ,extends:>,precedes:<
 
-	"ÉèÖÃÉ¾³ıÊ±¿É»ØÍËµÄ×Ö·û, Ëõ½ø, ½áÊø·û, ĞĞÊ×
+	"è®¾ç½®åˆ é™¤æ—¶å¯å›é€€çš„å­—ç¬¦, ç¼©è¿›, ç»“æŸç¬¦, è¡Œé¦–
 	set backspace=indent,eol,start whichwrap+=<,>,[,],h,l
-	" ÖØÆôºó³·ÏúÀúÊ·¿ÉÓÃ persistent undo
+	" é‡å¯åæ’¤é”€å†å²å¯ç”¨ persistent undo
 	set undofile
 	set undodir=$VIMFILES/undo/
 	set undolevels=1000 "maximum number of changes that can be undone
 
 	"set nobomb
-	"ÓëWindows¹²Ïí¼ôÌù°å
+	"ä¸Windowså…±äº«å‰ªè´´æ¿
 	"set clipboard+=unnamed
 
-	"ÉèÖÃ´úÂëÕÛµş·½Ê½Îª ÊÖ¹¤  indent
+	"è®¾ç½®ä»£ç æŠ˜å æ–¹å¼ä¸º æ‰‹å·¥  indent
 	"set foldmethod=manual
 	set foldmethod=indent
-	"ÉèÖÃ´úÂë¿éÕÛµşºóÏÔÊ¾µÄĞĞÊı
+	"è®¾ç½®ä»£ç å—æŠ˜å åæ˜¾ç¤ºçš„è¡Œæ•°
 	"set foldexpr=1
 	set foldlevel=3
 
-	"¹Ø±Õ´íÎóÉùÒô
+	"å…³é—­é”™è¯¯å£°éŸ³
 	set noerrorbells
 	set novisualbell
 	set t_vb=
@@ -378,12 +378,12 @@ if !exists('g:VimrcLoaded')
 
 	set sessionoptions=blank,buffers,curdir,folds,help,options,tabpages,winsize,slash,unix,resize
 
-	"ÉèÖÃÃüÁîĞĞµÄ¸ß¶ÈÎª1
+	"è®¾ç½®å‘½ä»¤è¡Œçš„é«˜åº¦ä¸º1
 	set cmdheight=1
-	"¹Ø±Õ±êÇ©À¸
+	"å…³é—­æ ‡ç­¾æ 
 	set showtabline=0
 
-	"Ö´ĞĞcmd½«½á¹û·µ»ØÔÚĞÂtabÖĞ
+	"æ‰§è¡Œcmdå°†ç»“æœè¿”å›åœ¨æ–°tabä¸­
 	"tabe +r\!cmd
 endif
 
@@ -401,12 +401,23 @@ endfunction
 autocmd! bufwritepost hosts call FlushDNS()
 
 
-"<c-w>+	 <c-w>5+	 Ôö¼Óµ±Ç°bufferµÄ¸ß¶È
-"<c-w>-	 <c-w>5-	 ¼õÉÙµ±Ç°bufferµÄ¸ß¶È
+"<c-w>+	 <c-w>5+	 å¢åŠ å½“å‰bufferçš„é«˜åº¦
+"<c-w>-	 <c-w>5-	 å‡å°‘å½“å‰bufferçš„é«˜åº¦
 
 """""""""""""""""""""""""""""""""""""""
 " Plugins Config Start
 """""""""""""""""""""""""""""""""""""""
+
+" {{{ CtrlP
+	function! FindInPath()
+		let l:fPath = input("è¯·è¾“å…¥ç›®å½•å:")
+		if strlen(l:fPath) > 0
+			exec ':CtrlP '.l:fPath
+		endif
+	endfunction
+	map <a-p> :call FindInPath()<CR>
+	map <Leader>p :CtrlPBuffer<CR>
+" }}}
 
 " {{{ MRU
 	let MRU_Add_Menu = 0
@@ -450,7 +461,7 @@ autocmd! bufwritepost hosts call FlushDNS()
 	nmap <leader>sm :SpaceBox<CR>
 " }}}
 
-" {{{ surround Ê¹ÓÃËµÃ÷
+" {{{ surround ä½¿ç”¨è¯´æ˜
 	"	Normal mode
 	"	-----------
 	"		ds  - delete a surrounding
@@ -480,9 +491,9 @@ autocmd! bufwritepost hosts call FlushDNS()
 
 
 " {{{ vim-bad-withespace plugin
-	"ÇĞ»» ¸ßÁÁÏÔÊ¾/Òş²Ø ĞĞÎ²¿Õ¸ñ
+	"åˆ‡æ¢ é«˜äº®æ˜¾ç¤º/éšè— è¡Œå°¾ç©ºæ ¼
 	nmap <Leader>sh :ToggleBadWhitespace<CR>
-	"ÒÆ³ı ĞĞÎ²¿Õ¸ñĞĞÎ²
+	"ç§»é™¤ è¡Œå°¾ç©ºæ ¼è¡Œå°¾
 	nmap <Leader>rh :EraseBadWhitespace <CR>
 " }}}
 
@@ -510,51 +521,51 @@ autocmd! bufwritepost hosts call FlushDNS()
 
 
 
-"ÕÛµşÏà¹ØµÄ¿ì½İ¼ü
+"æŠ˜å ç›¸å…³çš„å¿«æ·é”®
 "zR Unfold all folded lines in file.
 "za Open/Close (toggle) a folded group of lines.
 "aA Open a Closed fold or close and open fold recursively.
-"zi È«²¿ Õ¹¿ª/¹Ø±Õ ÕÛµş
-"zo Õ¹¿ªµ±Ç°¹â±êËùÔÚĞĞ
+"zi å…¨éƒ¨ å±•å¼€/å…³é—­ æŠ˜å 
+"zo å±•å¼€å½“å‰å…‰æ ‡æ‰€åœ¨è¡Œ
 "zc close a folded group of lines
 "zC close all fold ed lines recursively
-"zM ¹Ø±ÕËùÓĞ¿ÉÕÛµşÇøÓò
-"map <F3> zo "´ò¿ªÕÛµş
-"map <F4> zc "¹Ø±ÕÕÛµş
-"map <F5> zR "´ò¿ªËùÓĞÕÛµş
-"map <F6> zM "¹Ø±ÕËùÓĞÕÛµş
-"³£ÓÃµÄÕÛµş¿ì½İ¼ü£º
+"zM å…³é—­æ‰€æœ‰å¯æŠ˜å åŒºåŸŸ
+"map <F3> zo "æ‰“å¼€æŠ˜å 
+"map <F4> zc "å…³é—­æŠ˜å 
+"map <F5> zR "æ‰“å¼€æ‰€æœ‰æŠ˜å 
+"map <F6> zM "å…³é—­æ‰€æœ‰æŠ˜å 
+"å¸¸ç”¨çš„æŠ˜å å¿«æ·é”®ï¼š
 
-"ÕâÀï¾ÍÒÔindentºÍmarkerÎªÀıÀ´½²½²°É£¬ÒòÎªÕâÁ½ÖÖÓÃµÄ±È½Ï¶à£º
+"è¿™é‡Œå°±ä»¥indentå’Œmarkerä¸ºä¾‹æ¥è®²è®²å§ï¼Œå› ä¸ºè¿™ä¸¤ç§ç”¨çš„æ¯”è¾ƒå¤šï¼š
 
-"Èç¹ûÊ¹ÓÃÁËindent·½Ê½£¬vim»á×Ô¶¯µÄ¶Ô´óÀ¨ºÅµÄÖĞ¼ä²¿·Ö½øĞĞÕÛµş£¬ÎÒÃÇ¿ÉÒÔÖ±½ÓÊ¹ÓÃÕâĞ©ÏÖ³ÉµÄÕÛµş³É¹û¡£
-"ÔÚ¿ÉÕÛµş´¦£¨´óÀ¨ºÅÖĞ¼ä£©£º
+"å¦‚æœä½¿ç”¨äº†indentæ–¹å¼ï¼Œvimä¼šè‡ªåŠ¨çš„å¯¹å¤§æ‹¬å·çš„ä¸­é—´éƒ¨åˆ†è¿›è¡ŒæŠ˜å ï¼Œæˆ‘ä»¬å¯ä»¥ç›´æ¥ä½¿ç”¨è¿™äº›ç°æˆçš„æŠ˜å æˆæœã€‚
+"åœ¨å¯æŠ˜å å¤„ï¼ˆå¤§æ‹¬å·ä¸­é—´ï¼‰ï¼š
 
-"zc	  ÕÛµş
-"zC	 ¶ÔËùÔÚ·¶Î§ÄÚËùÓĞÇ¶Ì×µÄÕÛµşµã½øĞĞÕÛµş
-"zo	  Õ¹¿ªÕÛµş
-"zO	 ¶ÔËùÔÚ·¶Î§ÄÚËùÓĞÇ¶Ì×µÄÕÛµşµãÕ¹¿ª
-"[z	   µ½µ±Ç°´ò¿ªµÄÕÛµşµÄ¿ªÊ¼´¦¡£
-"]z	   µ½µ±Ç°´ò¿ªµÄÕÛµşµÄÄ©Î²´¦¡£
-"zj	   ÏòÏÂÒÆ¶¯¡£µ½´ïÏÂÒ»¸öÕÛµşµÄ¿ªÊ¼´¦¡£¹Ø±ÕµÄÕÛµşÒ²±»¼ÆÈë¡£
-"zk	  ÏòÉÏÒÆ¶¯µ½Ç°Ò»ÕÛµşµÄ½áÊø´¦¡£¹Ø±ÕµÄÕÛµşÒ²±»¼ÆÈë¡£
+"zc	  æŠ˜å 
+"zC	 å¯¹æ‰€åœ¨èŒƒå›´å†…æ‰€æœ‰åµŒå¥—çš„æŠ˜å ç‚¹è¿›è¡ŒæŠ˜å 
+"zo	  å±•å¼€æŠ˜å 
+"zO	 å¯¹æ‰€åœ¨èŒƒå›´å†…æ‰€æœ‰åµŒå¥—çš„æŠ˜å ç‚¹å±•å¼€
+"[z	   åˆ°å½“å‰æ‰“å¼€çš„æŠ˜å çš„å¼€å§‹å¤„ã€‚
+"]z	   åˆ°å½“å‰æ‰“å¼€çš„æŠ˜å çš„æœ«å°¾å¤„ã€‚
+"zj	   å‘ä¸‹ç§»åŠ¨ã€‚åˆ°è¾¾ä¸‹ä¸€ä¸ªæŠ˜å çš„å¼€å§‹å¤„ã€‚å…³é—­çš„æŠ˜å ä¹Ÿè¢«è®¡å…¥ã€‚
+"zk	  å‘ä¸Šç§»åŠ¨åˆ°å‰ä¸€æŠ˜å çš„ç»“æŸå¤„ã€‚å…³é—­çš„æŠ˜å ä¹Ÿè¢«è®¡å…¥ã€‚
 
-"µ±Ê¹ÓÃmarker·½Ê½Ê±£¬ĞèÒªÓÃ±ê¼ÆÀ´±êÊ¶´úÂëµÄÕÛµş£¬ÏµÍ³Ä¬ÈÏÊÇ{{{ºÍ}}}(Ç°ÃæÒÑ×ö³öËµÃ÷)
-"ÎÒÃÇ¿ÉÒÔÊ¹ÓÃÏÂÃæµÄÃüÁîÀ´´´½¨ºÍÉ¾³ıÕÛµş£º
+"å½“ä½¿ç”¨markeræ–¹å¼æ—¶ï¼Œéœ€è¦ç”¨æ ‡è®¡æ¥æ ‡è¯†ä»£ç çš„æŠ˜å ï¼Œç³»ç»Ÿé»˜è®¤æ˜¯{{{å’Œ}}}(å‰é¢å·²åšå‡ºè¯´æ˜)
+"æˆ‘ä»¬å¯ä»¥ä½¿ç”¨ä¸‹é¢çš„å‘½ä»¤æ¥åˆ›å»ºå’Œåˆ é™¤æŠ˜å ï¼š
 
-"zf ´´½¨ÕÛµş£¬±ÈÈçÔÚmarker·½Ê½ÏÂ£º
-"zf56G£¬´´½¨´Óµ±Ç°ĞĞÆğµ½56ĞĞµÄ´úÂëÕÛµş£»
-"10zf»ò10zf+»òzf10¡ı£¬´´½¨´Óµ±Ç°ĞĞÆğµ½ºó10ĞĞµÄ´úÂëÕÛµş¡£
-"10zf-»òzf10¡ü£¬´´½¨´Óµ±Ç°ĞĞÆğµ½Ö®Ç°10ĞĞµÄ´úÂëÕÛµş¡£
-"ÔÚÀ¨ºÅ´¦zf%£¬´´½¨´Óµ±Ç°ĞĞÆğµ½¶ÔÓ¦µÄÆ¥ÅäµÄÀ¨ºÅÉÏÈ¥£¨£¨£©£¬{}£¬[]£¬<>µÈ£©¡£
-"zd É¾³ı (delete) ÔÚ¹â±êÏÂµÄÕÛµş¡£½öµ± 'foldmethod' ÉèÎª "manual" »ò "marker" Ê±ÓĞĞ§¡£
-"zD Ñ­»·É¾³ı (Delete) ¹â±êÏÂµÄÕÛµş£¬¼´Ç¶Ì×É¾³ıÕÛµş¡£
-		 "½öµ± 'foldmethod' ÉèÎª "manual" »ò "marker" Ê±ÓĞĞ§¡£
-"zE ³ıÈ¥ (Eliminate) ´°¿ÚÀï¡°ËùÓĞ¡±µÄÕÛµş¡£
-		 "½öµ± 'foldmethod' ÉèÎª "manual" »ò "marker" Ê±ÓĞĞ§¡£"
+"zf åˆ›å»ºæŠ˜å ï¼Œæ¯”å¦‚åœ¨markeræ–¹å¼ä¸‹ï¼š
+"zf56Gï¼Œåˆ›å»ºä»å½“å‰è¡Œèµ·åˆ°56è¡Œçš„ä»£ç æŠ˜å ï¼›
+"10zfæˆ–10zf+æˆ–zf10â†“ï¼Œåˆ›å»ºä»å½“å‰è¡Œèµ·åˆ°å10è¡Œçš„ä»£ç æŠ˜å ã€‚
+"10zf-æˆ–zf10â†‘ï¼Œåˆ›å»ºä»å½“å‰è¡Œèµ·åˆ°ä¹‹å‰10è¡Œçš„ä»£ç æŠ˜å ã€‚
+"åœ¨æ‹¬å·å¤„zf%ï¼Œåˆ›å»ºä»å½“å‰è¡Œèµ·åˆ°å¯¹åº”çš„åŒ¹é…çš„æ‹¬å·ä¸Šå»ï¼ˆï¼ˆï¼‰ï¼Œ{}ï¼Œ[]ï¼Œ<>ç­‰ï¼‰ã€‚
+"zd åˆ é™¤ (delete) åœ¨å…‰æ ‡ä¸‹çš„æŠ˜å ã€‚ä»…å½“ 'foldmethod' è®¾ä¸º "manual" æˆ– "marker" æ—¶æœ‰æ•ˆã€‚
+"zD å¾ªç¯åˆ é™¤ (Delete) å…‰æ ‡ä¸‹çš„æŠ˜å ï¼Œå³åµŒå¥—åˆ é™¤æŠ˜å ã€‚
+		 "ä»…å½“ 'foldmethod' è®¾ä¸º "manual" æˆ– "marker" æ—¶æœ‰æ•ˆã€‚
+"zE é™¤å» (Eliminate) çª—å£é‡Œâ€œæ‰€æœ‰â€çš„æŠ˜å ã€‚
+		 "ä»…å½“ 'foldmethod' è®¾ä¸º "manual" æˆ– "marker" æ—¶æœ‰æ•ˆã€‚"
 
 
-"Æô¶¯Ê±×Ô¶¯×î´ó»¯
+"å¯åŠ¨æ—¶è‡ªåŠ¨æœ€å¤§åŒ–
 "au GUIENTER * simalt~x
 au BufReadPost *.exe %!xxd
 map <A-w> :set wrap!<CR>
