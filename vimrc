@@ -417,6 +417,18 @@ autocmd! bufwritepost hosts call FlushDNS()
 	endfunction
 	map <a-p> :call FindInPath()<CR>
 	map <Leader>p :CtrlPBuffer<CR>
+	set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+	set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe,*.msi  " Windows
+
+	let g:ctrlp_custom_ignore = {
+				\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+				\ 'file': '\v\.(exe|so|dll|zip|msi)$',
+				\ 'link': 'some_bad_symbolic_links',
+				\ }
+	let g:ctrlp_mruf_max = 500
+	let g:ctrlp_follow_symlinks = 1
+	"let g:ctrlp_map = '<c-p>'
+	"let g:ctrlp_cmd = 'CtrlP'
 " }}}
 
 " {{{ MRU
@@ -424,6 +436,10 @@ autocmd! bufwritepost hosts call FlushDNS()
 	let MRU_Max_Entries = 500
 	let MRU_Window_Height = 20
 	nmap <Leader>f :MRU<CR>
+" }}}
+
+" {{{ nerdtree
+	nmap <F2> :NERDTreeToggle<CR>
 " }}}
 
 " {{{ NERD_commenter
