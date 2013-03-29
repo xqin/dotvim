@@ -169,7 +169,7 @@ vnoremap <C-C> "+y
 imap <C-V> <C-O>"+gP
 nmap <Leader>P "+gP
 imap <S-Insert> "+gP
-cmap <C-V> <C-R>+
+"cmap <C-V> <C-R>+
 cmap <S-Insert> <C-R>+
 
 
