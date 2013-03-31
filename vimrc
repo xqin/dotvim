@@ -22,6 +22,8 @@ if has('gui_running')
 	set guioptions-=L
 	" bottom scrollbar
 	set guioptions-=b
+	"关闭错误声音
+	au GUIEnter * set novisualbell vb t_vb=
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -108,11 +110,11 @@ inoremap jj <ESC>
 
 " Only do this part when compiled with support for autocommands
 if has("autocmd")
-" When editing a file, always jump to the last cursor position
-autocmd BufReadPost *
-\ if line("'\"") > 0 && line ("'\"") <= line("$") |
-\ exe "normal g'\"" |
-\ endif
+	" When editing a file, always jump to the last cursor position
+	autocmd BufReadPost *
+	\ if line("'\"") > 0 && line ("'\"") <= line("$") |
+	\ exe "normal g'\"" |
+	\ endif
 endif
 
 map <c-o> :browse tabnew<CR>
@@ -365,11 +367,6 @@ if !exists('g:VimrcLoaded')
 	"set foldexpr=1
 	set foldlevel=3
 
-	"关闭错误声音
-	set noerrorbells
-	set novisualbell
-	set t_vb=
-	set tm=500
 
 	" alway show status bar
 	set laststatus=2
@@ -408,6 +405,14 @@ autocmd! bufwritepost hosts call FlushDNS()
 """""""""""""""""""""""""""""""""""""""
 " Plugins Config Start
 """""""""""""""""""""""""""""""""""""""
+
+" {{{ vim-coffee-script
+	"1. install nodejs
+	"2. npm install -g coffee-script
+	"3. npm install -g coffeelint
+	nmap <Leader>mc :CoffeeMake<CR>
+	au BufWritePost *.coffee silent CoffeeMake! -b | cwindow
+" }}}
 
 " {{{ CtrlP
 	function! FindInPath()
