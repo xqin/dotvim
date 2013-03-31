@@ -73,3 +73,6 @@
 [submodule "bundle/VimExplorer"]
 	path = bundle/VimExplorer
 	url = https://github.com/xqin/VimExplorer.git
+[submodule "bundle/vim-coffee-script"]
+	path = bundle/vim-coffee-script
+	url = https://github.com/kchmck/vim-coffee-script.git
