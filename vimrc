@@ -1,4 +1,4 @@
-set nocompatible
+﻿set nocompatible
 behave mswin
 
 if has('gui_running')
@@ -47,8 +47,7 @@ source $VIMBALL/vim-pathogen/autoload/pathogen.vim
 
 call pathogen#infect()
 
-
-
+map <Leader>he :call pathogen#helptags()<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 " remap leader
@@ -164,7 +163,7 @@ cmap <c-f> <Right>
 cmap <c-b> <Left>
 
 " CTRL-C are Copy
-vnoremap <C-C> "+y
+vnoremap <C-C> "+yv`]
 " CTRL-V and SHIFT-Insert are Paste
 imap <C-V> <C-O>"+gP
 nmap <Leader>P "+gP
@@ -237,6 +236,7 @@ if !exists('g:VimrcLoaded')
 		nmap <s-t> <Esc>:call SetAlpha(-3)<CR>
 
 		let g:VimTopMost = 0
+
 		function! SwitchVimTopMostMode()
 			if g:VimTopMost == 0
 				let g:VimTopMost = 1
@@ -343,7 +343,6 @@ if !exists('g:VimrcLoaded')
 	set textwidth=99999
 
 	"set colorcolumn=85
-
 	"显示空白及Tab
 	set list
 	set listchars=tab:\|\ ,extends:>,precedes:<
@@ -380,6 +379,8 @@ if !exists('g:VimrcLoaded')
 
 	"设置命令行的高度为1
 	set cmdheight=1
+	"设置命令行窗口的高度为
+	set cmdwinheight=10
 	"关闭标签栏
 	set showtabline=0
 
@@ -463,7 +464,7 @@ autocmd! bufwritepost hosts call FlushDNS()
 
 " {{{ powerline.vim plugin
 	let g:Powerline_symbols = 'fancy'
-	let g:Powerline_colorscheme = 'solarized256'
+	"let g:Powerline_colorscheme = 'solarized256'
 	nmap <Leader>r :PowerlineReloadColorscheme<CR>
 	autocmd BufWinEnter * call Pl#UpdateStatusline(1)
 " }}}
