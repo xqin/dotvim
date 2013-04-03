@@ -174,6 +174,9 @@ imap <S-Insert> "+gP
 cmap <S-Insert> <C-R>+
 
 
+"选择需要统计的文本
+"按下 g<C-g>
+
 ":vimgrep /弹冠相庆/gj d:/mydocs/*/*.txt
 "如果要包含子文件夹，则用
 
@@ -283,7 +286,7 @@ if !exists('g:VimrcLoaded')
 	set scrolloff=6
 	"自动保存文件
 	set autowrite
-	set nowritebackup
+	set writebackup
 	set nobackup
 	set noswapfile
 	"不显示首屏
@@ -327,7 +330,7 @@ if !exists('g:VimrcLoaded')
 
 	"显示相对行号 (与下面的只能有一个生效)
 	"set relativenumber
-	set helplang=cn
+	set helplang=cn,en
 	if !has('unix')
 		language message zh_CN.UTF-8
 	endif
@@ -399,6 +402,20 @@ endfunction
 autocmd! bufwritepost hosts call FlushDNS()
 
 
+
+
+map <Leader>hc :set cuc!<CR>
+map <Leader>ch :call SetColorColumn()<CR>
+function! SetColorColumn()
+    let col_num = virtcol(".")
+    let cc_list = split(&cc, ',')
+    if count(cc_list, string(col_num)) <= 0
+        execute "set cc+=".col_num
+    else
+        execute "set cc-=".col_num
+    endif
+endfunction
+
 "<c-w>+	 <c-w>5+	 增加当前buffer的高度
 "<c-w>-	 <c-w>5-	 减少当前buffer的高度
 
@@ -411,7 +428,8 @@ autocmd! bufwritepost hosts call FlushDNS()
 	"2. npm install -g coffee-script
 	"3. npm install -g coffeelint
 	nmap <Leader>mc :CoffeeMake<CR>
-	au BufWritePost *.coffee silent CoffeeMake! -b | cwindow
+	nmap <Leader>cv :CoffeeCompile watch vert<CR>
+	"au BufWritePost *.coffee silent CoffeeMake! -b | cwindow
 " }}}
 
 " {{{ CtrlP
@@ -476,11 +494,16 @@ autocmd! bufwritepost hosts call FlushDNS()
 
 " {{{ smarthome plugin
 	map <Home> :SmartHomeKey<CR>
+	map <s-6> :SmartHomeKey<CR>
 	imap <Home> <C-O>:SmartHomeKey<CR>
 " }}}
 
 " {{{ spacebox.vim plugin
 	nmap <leader>sm :SpaceBox<CR>
+" }}}
+
+" {{{ tagbar.vim plugin
+nmap <F8> :TagbarToggle<CR>
 " }}}
 
 " {{{ surround 使用说明

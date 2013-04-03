@@ -1,4 +1,4 @@
-# coding=gbk
+# coding=utf-8
 import sys, os, subprocess
 cmd = ''.join(sys.argv);
 
@@ -11,22 +11,22 @@ returncode = popen_obj.returncode
 if(returncode <> 0):
     print "Return Code: %s\n" % str(returncode)
 if(len(stdout.strip()) > 0):
-    print "Standard Out:\n%s" % str(stdout).replace('\r', '')
+    print "Standard Out:\n%s" % str(stdout).decode('gbk').replace('\r', '')
 if(len(stderr.strip()) > 0):
-    print "StandardError Out:\n%s" % stderr.replace('\r', '')
+    print "StandardError Out:\n%s" % str(stderr).decode('gbk').replace('\r', '')
 
 
-#按行输出程序执行结果
+#鎸夎杈撳嚭绋嬪簭鎵ц缁撴灉
 #while True:
     #next_line = popen_obj.stdout.readline()
     #if next_line == '' and popen_obj.pol() != None
         #break
     #print next_line
 
-#print "标准输出:\n"
+#print "鏍囧噯杈撳嚭:\n"
 #for line in popen_obj.stdout:
     #print line.strip()
 
-#print "错误输出:\n"
+#print "閿欒杈撳嚭:\n"
 #for line in popen_obj.stderr:
     #print line.strip()
