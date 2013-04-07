@@ -62,8 +62,7 @@ let g:mapleader = ","
 
 nmap <Leader>s :w<CR>
 map <C-S> :w<CR>
-
-"关闭文件,如果文件修改过则不关闭
+imap <C-S> <c-o><c-s>
 nmap <Leader>w :bd<CR>
 "强制关闭文件
 nmap <Leader>W :bd!<CR>
@@ -176,6 +175,9 @@ imap <S-Insert> "+gP
 cmap <S-Insert> <C-R>+
 
 
+"选择需要统计的文本
+"按下 g<C-g>
+
 ":vimgrep /弹冠相庆/gj d:/mydocs/*/*.txt
 "如果要包含子文件夹，则用
 
@@ -285,7 +287,7 @@ if !exists('g:VimrcLoaded')
 	set scrolloff=6
 	"自动保存文件
 	set autowrite
-	set nowritebackup
+	set writebackup
 	set nobackup
 	set noswapfile
 	"不显示首屏
@@ -331,7 +333,7 @@ if !exists('g:VimrcLoaded')
 
 	"显示相对行号 (与下面的只能有一个生效)
 	"set relativenumber
-	set helplang=cn
+	set helplang=cn,en
 	if !has('unix')
 		language message zh_CN.UTF-8
 	endif
@@ -408,37 +410,17 @@ endfunction
 autocmd! bufwritepost hosts call FlushDNS()
 
 
-function! DeleteDuplicateLines()
-    if !exists("g:delimiter")
-        let g:delimiter=""
-    endif
-    let  number1=line(".")
-    call cursor(number1+1,0)
-    let  number2=line(".")
-    call cursor(number1,0)
-    if number1 == number2
-        exe "echo '[INFO] hit bottom when delete the duplicate lines'"
-        return
-    endif
-    let line1=getline(number1)
-    let line2=getline(number2)
-    if g:delimiter != ""
-        let pos=stridx(line1,g:delimiter)
-        if pos == -1
-            exe "echo '[ERROR] can not find the delimiter when delete the duplicate lines'"
-            return
-        endif
-        let line1=strpart(line1,0,pos)
-        let line2=strpart(line2,0,pos)
-    endif
-    if line1 == line2
-        silent exe "normal! dd"
-        exe "echo '[INFO] delete the duplicate line success'"
+map <Leader>hc :set cuc!<CR>
+map <Leader>ch :call SetColorColumn()<CR>
+function! SetColorColumn()
+    let col_num = virtcol(".")
+    let cc_list = split(&cc, ',')
+    if count(cc_list, string(col_num)) <= 0
+        execute "set cc+=".col_num
     else
-        call cursor(number2,0)
+        execute "set cc-=".col_num
     endif
 endfunction
-":nnoremap <silent> <S-P>   :call DeleteDuplicateLines()<CR>
 
 "<c-w>+	 <c-w>5+	 增加当前buffer的高度
 "<c-w>-	 <c-w>5-	 减少当前buffer的高度
@@ -452,7 +434,8 @@ endfunction
 	"2. npm install -g coffee-script
 	"3. npm install -g coffeelint
 	nmap <Leader>mc :CoffeeMake<CR>
-	au BufWritePost *.coffee silent CoffeeMake! -b | cwindow
+	nmap <Leader>cv :CoffeeCompile watch vert<CR>
+	"au BufWritePost *.coffee silent CoffeeMake! -b | cwindow
 " }}}
 
 " {{{ CtrlP
@@ -517,11 +500,16 @@ endfunction
 
 " {{{ smarthome plugin
 	map <Home> :SmartHomeKey<CR>
+	map <s-6> :SmartHomeKey<CR>
 	imap <Home> <C-O>:SmartHomeKey<CR>
 " }}}
 
 " {{{ spacebox.vim plugin
 	nmap <leader>sm :SpaceBox<CR>
+" }}}
+
+" {{{ tagbar.vim plugin
+nmap <F8> :TagbarToggle<CR>
 " }}}
 
 " {{{ surround 使用说明
