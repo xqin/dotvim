@@ -60,8 +60,7 @@ let g:mapleader = ","
 
 nmap <Leader>s :w<CR>
 map <C-S> :w<CR>
-
-"关闭文件,如果文件修改过则不关闭
+imap <C-S> <c-o><c-s>
 nmap <Leader>w :bd<CR>
 "强制关闭文件
 nmap <Leader>W :bd!<CR>
