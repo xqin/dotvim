@@ -438,7 +438,7 @@ function! DeleteDuplicateLines()
         call cursor(number2,0)
     endif
 endfunction
-:nnoremap <silent> <S-P>   :call DeleteDuplicateLines()<CR>
+":nnoremap <silent> <S-P>   :call DeleteDuplicateLines()<CR>
 
 "<c-w>+	 <c-w>5+	 增加当前buffer的高度
 "<c-w>-	 <c-w>5-	 减少当前buffer的高度
