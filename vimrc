@@ -13,6 +13,8 @@ if has('gui_running')
 		set guioptions-=t
 	endif
 
+	set guioptions-=e
+
 	" right-hand scrollbar
 	set guioptions-=r
 	set guioptions-=R
@@ -318,15 +320,17 @@ if !exists('g:VimrcLoaded')
 	"How many tenths of a second to blink
 	set mat=2
 	"开启C/C++风格的自动缩进
-	set cin
+	set cindent
 	"设置自动缩进格式
-	set cino=:1g1t1(sus
+	set cinoptions=:0g0t0(0
+	"set cino=:1g1t1(sus
 	"禁止鼠标
 	"set selectmode=key
 	"关闭鼠标的支持(如果需要开启设置值为a)
 	set mouse=a
 	" Make the command-line completion better
 	set wildmenu
+	set copyindent
 
 	"显示相对行号 (与下面的只能有一个生效)
 	"set relativenumber
@@ -354,6 +358,9 @@ if !exists('g:VimrcLoaded')
 
 	"设置删除时可回退的字符, 缩进, 结束符, 行首
 	set backspace=indent,eol,start whichwrap+=<,>,[,],h,l
+
+	set complete=.,w,b,u,t,i,d
+	set completeopt=longest,menu
 	" 重启后撤销历史可用 persistent undo
 	set undofile
 	set undodir=$VIMFILES/undo/
@@ -366,9 +373,11 @@ if !exists('g:VimrcLoaded')
 	"设置代码折叠方式为 手工  indent
 	"set foldmethod=manual
 	set foldmethod=indent
+	set nrformats=octal,hex,alpha
+	set virtualedit=block
 	"设置代码块折叠后显示的行数
 	"set foldexpr=1
-	set foldlevel=3
+	set foldlevel=5
 
 
 	" alway show status bar
@@ -400,8 +409,6 @@ endfunction
 :nmap <silent> <Leader>host :tabnew c:\windows\system32\drivers\etc\hosts<CR>
 :nmap <silent> <Leader>dns :!ipconfig /flushdns<CR>
 autocmd! bufwritepost hosts call FlushDNS()
-
-
 
 
 map <Leader>hc :set cuc!<CR>
