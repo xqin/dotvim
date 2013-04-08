@@ -24,6 +24,10 @@ if has('gui_running')
 	set guioptions-=b
 	"关闭错误声音
 	au GUIEnter * set novisualbell vb t_vb=
+
+	winpos 135 100
+	set lines=38
+	set columns=124
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -212,9 +216,6 @@ hi CursorIM guifg=bg guibg=Blue gui=NONE
 if !exists('g:VimrcLoaded')
 	"设置支持的颜色数
 	set t_Co=256
-	winpos 135 100
-	set lines=38
-	set columns=124
 
 	color monokai
 	if has('gui_running') && has('libcall')
@@ -406,13 +407,13 @@ autocmd! bufwritepost hosts call FlushDNS()
 map <Leader>hc :set cuc!<CR>
 map <Leader>ch :call SetColorColumn()<CR>
 function! SetColorColumn()
-    let col_num = virtcol(".")
-    let cc_list = split(&cc, ',')
-    if count(cc_list, string(col_num)) <= 0
-        execute "set cc+=".col_num
-    else
-        execute "set cc-=".col_num
-    endif
+	let col_num = virtcol(".")
+	let cc_list = split(&cc, ',')
+	if count(cc_list, string(col_num)) <= 0
+		execute "set cc+=".col_num
+	else
+		execute "set cc-=".col_num
+	endif
 endfunction
 
 "<c-w>+	 <c-w>5+	 增加当前buffer的高度
@@ -422,6 +423,9 @@ endfunction
 " Plugins Config Start
 """""""""""""""""""""""""""""""""""""""
 
+" {{{ vim-coffee-script
+	nnoremap <F5> :GundoToggle<CR>
+" }}}
 " {{{ vim-coffee-script
 	"1. install nodejs
 	"2. npm install -g coffee-script
