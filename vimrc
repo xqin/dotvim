@@ -27,9 +27,11 @@ if has('gui_running')
 	"关闭错误声音
 	au GUIEnter * set novisualbell vb t_vb=
 
-	winpos 135 100
-	set lines=38
-	set columns=124
+	if !exists('g:VimrcLoaded')
+		winpos 135 100
+		set lines=38
+		set columns=124
+	endif
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -63,9 +65,16 @@ map <Leader>he :call pathogen#helptags()<CR>
 let mapleader = ","
 let g:mapleader = ","
 
+function! SaveFile()
+	if expand('%') == ''
+		:bro save
+	else
+		:w
+	endif
+endfunction
 
-nmap <Leader>s :w<CR>
-map <C-S> :w<CR>
+nmap <Leader>s :call SaveFile()<CR>
+map <C-S> :call SaveFile()<CR>
 imap <C-S> <c-o><c-s>
 nmap <Leader>w :bd<CR>
 "强制关闭文件
@@ -135,6 +144,7 @@ nnoremap <Leader>2 :set filetype=css<CR>
 nnoremap <Leader>3 :set filetype=php<CR>
 nnoremap <Leader>4 :set filetype=javascript<CR>
 nnoremap <Leader>5 :set filetype=xhtml<CR>
+nnoremap <Leader>6 :set filetype=coffee<CR>
 
 
 
@@ -406,7 +416,7 @@ function! FlushDNS()
 	exe 'python sys.argv = ["ipconfig /flushdns"]'
 	exe 'pyf '.g:svn_cmd_path
 endfunction
-:nmap <silent> <Leader>host :tabnew c:\windows\system32\drivers\etc\hosts<CR>
+:nmap <silent> <Leader>ho :tabnew c:\windows\system32\drivers\etc\hosts<CR>
 :nmap <silent> <Leader>dns :!ipconfig /flushdns<CR>
 autocmd! bufwritepost hosts call FlushDNS()
 
