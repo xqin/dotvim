@@ -7,9 +7,6 @@
 [submodule "bundle/Color-Scheme-Explorer"]
 	path = bundle/Color-Scheme-Explorer
 	url = https://github.com/vim-scripts/Color-Scheme-Explorer.git
-[submodule "bundle/Lite-Tab-Page"]
-	path = bundle/Lite-Tab-Page
-	url = https://github.com/vim-scripts/Lite-Tab-Page.git
 [submodule "bundle/matchit"]
 	path = bundle/matchit
 	url = https://github.com/vim-scripts/matchit.zip.git
