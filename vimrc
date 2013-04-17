@@ -442,6 +442,7 @@ endfunction
 
 " {{{ vim-coffee-script
 	nnoremap <F5> :GundoToggle<CR>
+	autocmd FileType coffee setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 " }}}
 
 
