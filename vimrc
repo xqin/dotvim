@@ -295,7 +295,7 @@ if !exists('g:VimrcLoaded')
 	set ambiwidth=double
 
 	"上下可视行数
-	set scrolloff=6
+	set scrolloff=3
 	"自动保存文件
 	set autowrite
 	set writebackup
@@ -308,7 +308,7 @@ if !exists('g:VimrcLoaded')
 	"开启搜索时高亮搜索到的结果
 	set hlsearch
 	"搜索到结尾时不重新搜索
-	"set nowrapscan
+	set nowrapscan
 	set smartcase
 	"显示括号配对情况
 	set showmatch
@@ -494,6 +494,7 @@ endfunction
 	let NERDMenuMode = 0
 " }}}
 
+
 " {{{ bookmarking.vim colorscheme
 	hi BookMarkHighLight guifg=#7F9845 guibg=#232526
 	"sign define bookmark text=-> texthl=BookMarkHighLight linehl=BookMarkHighLight
@@ -523,10 +524,6 @@ endfunction
 
 " {{{ spacebox.vim plugin
 	nmap <leader>sm :SpaceBox<CR>
-" }}}
-
-" {{{ tagbar.vim plugin
-nmap <F8> :TagbarToggle<CR>
 " }}}
 
 " {{{ surround 使用说明
