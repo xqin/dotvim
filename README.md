@@ -26,3 +26,13 @@ Switch to the `.vim` or `vimfiles` directory, and fetch submodules:
 
     git submodule init
     git submodule update
+
+
+To remove a submodule you need to:
+Delete the relevant line from the `.gitmodules` file.
+Delete the relevant section from `.git/config`.
+Run `git rm --cached path_to_submodule` (no trailing slash).
+Delete the now untracked submodule files.
+Run `rm -rf path_to_submodule`
+Commit the superproject.
+`git commit . -m 'remove submodule'`
