@@ -187,6 +187,8 @@ nmap <Leader>P "+gP
 imap <S-Insert> "+gP
 "cmap <C-V> <C-R>+
 cmap <S-Insert> <C-R>+
+" 普通模式下 Ctrl+c 复制文件路径
+nnoremap <c-c> :let @+ = expand('%:p')<cr>
 
 
 "选择需要统计的文本
@@ -308,7 +310,7 @@ if !exists('g:VimrcLoaded')
 	"开启搜索时高亮搜索到的结果
 	set hlsearch
 	"搜索到结尾时不重新搜索
-	set nowrapscan
+	set wrapscan
 	set smartcase
 	"显示括号配对情况
 	set showmatch
@@ -321,7 +323,7 @@ if !exists('g:VimrcLoaded')
 	set tabstop=4
 	set softtabstop=4
 	set shiftwidth=4
-	"set expandtab
+	set expandtab
 	set smarttab
 	"retab  将tab转换为空格
 	"执行外部命令时禁止恢复屏幕内容
@@ -387,7 +389,7 @@ if !exists('g:VimrcLoaded')
 	set virtualedit=block
 	"设置代码块折叠后显示的行数
 	"set foldexpr=1
-	set foldlevel=5
+	set foldlevel=99
 
 
 	" alway show status bar
@@ -406,6 +408,37 @@ if !exists('g:VimrcLoaded')
 	"执行cmd将结果返回在新tab中
 	"tabe +r\!cmd
 endif
+
+autocmd filetype php setlocal dictionary+=$VIMFILES/dict/php_funclist.txt
+
+" {{{ 查找光标位置的单词并生成结果列表
+	function! QuickSearchList(visual, ...)
+		if empty(expand("%"))
+			return 0
+		endif
+		if a:visual
+			let l:saved_reg = @"
+			execute "normal! vgvy"
+			let	l:pattern = escape(@", '\\/.*$^~[]')
+			let l:pattern = substitute(l:pattern, "\n$", "", "")
+			let @" = l:saved_reg
+		else
+			if exists("a:1")
+				let l:pattern = a:1
+			else
+				let l:pattern = expand("<cword>")
+			endif
+		endif
+		execute ":vimgrep /" . l:pattern . "/ %"
+		execute ":copen"
+		let @/ = l:pattern
+		nnoremap <buffer> <silent> q :close<CR>
+	endfunction
+
+	command! -nargs=+ SearchList call QuickSearchList(0, <f-args>)
+	" 全文搜索选中的文字
+	vmap <silent><leader>a :call QuickSearchList(1)<cr>
+" }}}
 
 
 """"""""""""""""""""""""""""""""""""""""""""
@@ -513,7 +546,12 @@ endfunction
 	let g:Powerline_symbols = 'fancy'
 	"let g:Powerline_colorscheme = 'solarized256'
 	nmap <Leader>r :PowerlineReloadColorscheme<CR>
-	autocmd BufWinEnter * call Pl#UpdateStatusline(1)
+	"autocmd BufWinEnter * call Pl#UpdateStatusline(1)
+" }}}
+
+" {{{ pydiction.vim plugin
+	let g:pydiction_location = $VIMBALL.'/pydiction/complete-dict'
+	let g:pydiction_menu_height = 10
 " }}}
 
 " {{{ smarthome plugin
