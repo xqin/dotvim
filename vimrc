@@ -61,7 +61,11 @@ let $MYVIMRC = $VIMFILES.'/vimrc'
 let $VIMBALL = $VIMFILES.'/bundle'
 source $VIMBALL/vim-pathogen/autoload/pathogen.vim
 
-call pathogen#infect()
+execute pathogen#infect()
+"call pathogen#infect()
+
+syntax on
+filetype plugin indent on
 
 map <Leader>he :call pathogen#helptags()<CR>
 
@@ -281,7 +285,7 @@ if !exists('g:VimrcLoaded')
 
 	set fileformat=unix
 	set fileformats=dos,unix,mac
-	set bsdir=buffer
+	set browsedir=buffer
 	set history=256
 	set ambiwidth=double
 	set linespace=0
@@ -672,6 +676,8 @@ endfunction
 "au GUIENTER * simalt~x
 au BufReadPost *.exe %!xxd
 map <A-w> :set wrap!<CR>
+
+autocmd FileType py,yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab
 
 """"""""""""""""""""""""""""""""""
 syntax on
