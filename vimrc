@@ -1,4 +1,4 @@
-﻿set nocompatible
+set nocompatible
 behave mswin
 
 """""""""""""""""""""""""""""""""""""""""""""""""
@@ -273,10 +273,10 @@ if !exists('g:VimrcLoaded')
 	set fileencodings=utf-8,ucs-bom,default,chinese,big5,gbk,gb2312,cp936
 	"set guifont=Courier_New_for_Powerline:h12:cANSI
 	if has('unix')
-		set guifont=Microsoft\ YaHei\ Mono\ for\ Powerline\ 11
+		set guifont=Microsoft\ YaHei\ Mono\ for\ Powerline\ 12
 		"set guifont=Microsoft_YaHei_Mono_for_Powerline:h12:cGB2312
 	else
-		set guifont=Microsoft_YaHei_Mono_for_Powerl:h10:cGB2312
+		set guifont=Microsoft_YaHei_Mono_for_Powerl:h12:cGB2312
 	endif
 
 	set fileformat=unix
