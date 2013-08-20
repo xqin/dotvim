@@ -541,11 +541,6 @@ endfunction
 	map <silent> <S-F4> :PreviousBookmark<CR>
 " }}}
 
-
-" {{{ calendar.vim plugin
-  nmap <Leader>sc :Colorizer<CR>
-" }}}
-
 " {{{ powerline.vim plugin
 	let g:Powerline_symbols = 'fancy'
 	"let g:Powerline_colorscheme = 'solarized256'
