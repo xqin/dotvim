@@ -182,6 +182,7 @@ cmap <c-a> <Home>
 cmap <c-e> <End>
 cmap <c-f> <Right>
 cmap <c-b> <Left>
+set cedit=<C-Y>
 
 " CTRL-C are Copy
 vnoremap <C-C> "+yv`]
@@ -326,6 +327,7 @@ if !exists('g:VimrcLoaded')
 	set tabstop=4
 	set softtabstop=4
 	set shiftwidth=4
+	set shiftround
 	set expandtab
 	set smarttab
 	"retab  将tab转换为空格
@@ -345,6 +347,7 @@ if !exists('g:VimrcLoaded')
 	set mouse=a
 	" Make the command-line completion better
 	set wildmenu
+	set wildmode=longest:full,full
 	set copyindent
 
 	"显示相对行号 (与下面的只能有一个生效)
