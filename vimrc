@@ -307,13 +307,12 @@ if !exists('g:VimrcLoaded')
 	set writebackup
 	set nobackup
 	set noswapfile
-	"不显示首屏
-	"set shortmess=atI
+	set shortmess=atI
 	set ignorecase
 	set incsearch
 	"开启搜索时高亮搜索到的结果
 	set hlsearch
-	"搜索到结尾时不重新搜索
+	"搜索到结尾时重新搜索
 	set wrapscan
 	set smartcase
 	"显示括号配对情况
@@ -476,6 +475,10 @@ endfunction
 """""""""""""""""""""""""""""""""""""""
 " Plugins Config Start
 """""""""""""""""""""""""""""""""""""""
+
+" {{{  colorizer.vim
+	let g:colorizer_startup = 0
+" }}}
 
 " {{{ vim-coffee-script
 	nnoremap <F5> :GundoToggle<CR>
