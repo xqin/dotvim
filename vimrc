@@ -377,8 +377,6 @@ if !exists('g:VimrcLoaded')
 	"设置删除时可回退的字符, 缩进, 结束符, 行首
 	set backspace=indent,eol,start whichwrap+=<,>,[,],h,l
 
-	set complete=.,w,b,u,t,i,d
-	set completeopt=longest,menu
 	" 重启后撤销历史可用 persistent undo
 	set undofile
 	set undodir=$VIMFILES/undo/
@@ -410,7 +408,8 @@ if !exists('g:VimrcLoaded')
 	set cmdwinheight=10
 	"关闭标签栏
 	set showtabline=0
-
+	"补全时添加使用字典的方式
+	set complete+=k
 	"执行cmd将结果返回在新tab中
 	"tabe +r\!cmd
 endif
