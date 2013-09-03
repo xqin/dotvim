@@ -395,6 +395,7 @@ if !exists('g:VimrcLoaded')
 	"set foldexpr=1
 	set foldlevel=99
 
+	set synmaxcol=128
 
 	" alway show status bar
 	set laststatus=2
