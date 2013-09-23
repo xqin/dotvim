@@ -118,7 +118,8 @@ nnoremap k gk
 
 nmap Q <Nop>
 vmap Q <Nop>
-map! <F1> <Nop>
+noremap <F1> <Nop>
+inoremap <F1> <Nop>
 
 nnoremap ; :
 
