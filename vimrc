@@ -275,7 +275,7 @@ if !exists('g:VimrcLoaded')
 	"如果把 set encoding=utf-8 放在 ToggleFullScreen 前面
 	"则会导致全屏切换快捷键失效
 	set encoding=utf-8
-	set fileencodings=utf-8,ucs-bom,default,chinese,big5,gbk,gb2312,cp936
+	set fileencodings=utf-8,ucs-bom,cp936,cp950
 	"set guifont=Courier_New_for_Powerline:h12:cANSI
 	if has('unix')
 		set guifont=Microsoft\ YaHei\ Mono\ for\ Powerline\ 12
@@ -328,7 +328,7 @@ if !exists('g:VimrcLoaded')
 	set softtabstop=4
 	set shiftwidth=4
 	set shiftround
-	set expandtab
+	set noexpandtab
 	set smarttab
 	"retab  将tab转换为空格
 	"执行外部命令时禁止恢复屏幕内容
@@ -357,8 +357,8 @@ if !exists('g:VimrcLoaded')
 		language message zh_CN.UTF-8
 	endif
 
-	set shellquote=
-	set shellslash
+	"set shellquote=
+	"set shellslash
 	set shellxquote=
 	set shellpipe=2>&1\|tee
 	set shellredir=>%s\ 2>&1
