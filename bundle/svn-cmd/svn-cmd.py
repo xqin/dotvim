@@ -1,7 +1,7 @@
 # coding=utf-8
 import sys, os, subprocess
-#cmd = ''.join(sys.argv);
-cmd = 'dir c:'
+cmd = ''.join(sys.argv);
+#cmd = 'dir c:'
 
 print 'Run Command: [%s]\n' % cmd
 

@@ -118,7 +118,8 @@ nnoremap k gk
 
 nmap Q <Nop>
 vmap Q <Nop>
-map! <F1> <Nop>
+noremap <F1> <Nop>
+inoremap <F1> <Nop>
 
 nnoremap ; :
 
@@ -138,6 +139,7 @@ endif
 map <c-o> :browse tabnew<CR>
 map <Leader>hi :noh<CR>
 map <Leader>u :e ++enc=utf-8<CR>
+map <Leader>c :e ++enc=cp950<CR>
 map <Leader>su :set fileencoding=utf-8<CR>
 
 "在新标签中打开当前光标所在的文件
@@ -205,15 +207,6 @@ nnoremap <c-c> :let @+ = expand('%:p')<cr>
 ":vimgrep /弹冠相庆/gj d:/mydocs/**/*.txt
 "打开quickfix窗口查看匹配结果
 ":cw
-"在输入模式下移动光标,彻底抛弃方向键
-"行首
-"inoremap <C-a> <C-O>:SmartHomeKey<CR>
-inoremap <C-a> <Home>
-inoremap <C-e> <End>
-inoremap <C-h> <left>
-inoremap <C-j> <C-o>gj
-inoremap <C-k> <C-o>gk
-inoremap <C-l> <Right>
 
 function! MakeTmpFile(ext)
 	let s:fname = $TEMP.'/vim_tmp_'.abs(reltimestr(reltime())).'.'.a:ext
@@ -281,7 +274,7 @@ if !exists('g:VimrcLoaded')
 		set guifont=Microsoft\ YaHei\ Mono\ for\ Powerline\ 12
 		"set guifont=Microsoft_YaHei_Mono_for_Powerline:h12:cGB2312
 	else
-		set guifont=Microsoft_YaHei_Mono_for_Powerl:h12:cGB2312
+		set guifont=Microsoft_YaHei_Mono_for_Powerl:h13:cGB2312
 	endif
 
 	set fileformat=unix
@@ -537,75 +530,6 @@ endfunction
 	let NERDMenuMode = 0
 " }}}
 
-" {{{ neocomplete
-	"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-	" Disable AutoComplPop.
-	let g:acp_enableAtStartup = 0
-	" Use neocomplete.
-	let g:neocomplete#enable_at_startup = 1
-	" Use smartcase.
-	let g:neocomplete#enable_smart_case = 1
-	" Set minimum syntax keyword length.
-	let g:neocomplete#sources#syntax#min_keyword_length = 3
-	let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-
-	" Define dictionary.
-	let g:neocomplete#sources#dictionary#dictionaries = {
-		\ 'default' : '',
-		\ 'vimshell' : $HOME.'/.vimshell_hist',
-		\ 'scheme' : $HOME.'/.gosh_completions'
-			\ }
-
-	" Define keyword.
-	if !exists('g:neocomplete#keyword_patterns')
-		let g:neocomplete#keyword_patterns = {}
-	endif
-	let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-	" Plugin key-mappings.
-	inoremap <expr><C-g>     neocomplete#undo_completion()
-	inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-	" Recommended key-mappings.
-	" <CR>: close popup and save indent.
-	inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-	function! s:my_cr_function()
-	"return neocomplete#smart_close_popup() . "\<CR>"
-	" For no inserting <CR> key.
-	return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-	endfunction
-	" <TAB>: completion.
-	inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-	inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<TAB>"
-	" <C-h>, <BS>: close popup and delete backword char.
-	inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-	inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-	inoremap <expr><C-y>  neocomplete#close_popup()
-	inoremap <expr><C-e>  neocomplete#cancel_popup()
-	" Close popup by <Space>.
-	"inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
-
-
-	" Enable omni completion.
-	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-	autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-	autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-	" Enable heavy omni completion.
-	if !exists('g:neocomplete#sources#omni#input_patterns')
-	let g:neocomplete#sources#omni#input_patterns = {}
-	endif
-	let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-	let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-	let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-	" For perlomni.vim setting.
-	" https://github.com/c9s/perlomni.vim
-	let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-" }}}
-
 " {{{ bookmarking.vim colorscheme
 	hi BookMarkHighLight guifg=#7F9845 guibg=#232526
 	"sign define bookmark text=-> texthl=BookMarkHighLight linehl=BookMarkHighLight
@@ -740,6 +664,15 @@ endfunction
 "zE 除去 (Eliminate) 窗口里“所有”的折叠。
 		 "仅当 'foldmethod' 设为 "manual" 或 "marker" 时有效。"
 
+"在输入模式下移动光标,彻底抛弃方向键
+"行首
+"inoremap <C-a> <C-O>:SmartHomeKey<CR>
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+inoremap <C-h> <left>
+inoremap <C-j> <C-o>gj
+inoremap <C-k> <C-o>gk
+inoremap <C-l> <Right>
 
 "启动时自动最大化
 "au GUIENTER * simalt~x
