@@ -47,7 +47,7 @@ if !exists('g:GVimrcLoaded')
 			call libcallnr(g:MyVimLib, "ToggleFullScreen", 0)
 		endfunction
 
-		map <A-Enter> <Esc>:call ToggleFullScreen()<CR>
+		map <M-Enter> <Esc>:call ToggleFullScreen()<CR>
 		"map <A-Enter> <Esc>:call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
 
 		let g:VimAlpha = 240
@@ -79,6 +79,7 @@ if !exists('g:GVimrcLoaded')
 		nmap <s-r> <Esc>:call SwitchVimTopMostMode()<CR>
 	endif
 
+	set encoding=utf-8
 endif
 
 " vim: tabstop=4 shiftwidth=4 softtabstop=4 noexpandtab

@@ -199,7 +199,10 @@ if !exists('g:VimrcLoaded')
 
 	color monokai
 
-	set encoding=utf-8
+	if !has('gui_running')
+		set encoding=utf-8
+	endif
+
 	set fileencodings=utf-8,ucs-bom,cp936,cp950
 	"set guifont=Courier_New_for_Powerline:h12:cANSI
 	if has('unix')
@@ -413,6 +416,19 @@ endfunction
 
 " {{{  colorizer.vim
 	let g:colorizer_startup = 0
+" }}}
+
+" {{{  jshint2.vim
+" Error List Shortcuts
+" t — open error in new tab.
+" v — open error in new vertical split.
+" s — open error in new horizontal split.
+" i — ignore selected error.
+" n — scroll to selected error.
+" q — close error list.
+	nnoremap <Leader>cj :JSHint<CR>
+	inoremap <Leader>cj <C-O>:JSHint<CR>
+	vnoremap <Leader>cj :JSHint<CR>
 " }}}
 
 " {{{ vim-coffee-script
