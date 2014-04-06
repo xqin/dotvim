@@ -7,45 +7,13 @@ behave mswin
 let mapleader = ","
 let g:mapleader = ","
 
-if has('gui_running')
-	if has('menu')
-		let g:did_install_default_menus = 1
-		set guioptions-=m
-		set guioptions-=M
-	endif
-
-	if has('toolbar')
-		set guioptions-=T
-		set guioptions-=t
-	endif
-
-	set guioptions-=e
-
-	" right-hand scrollbar
-	set guioptions-=r
-	set guioptions-=R
-
-	" left-hand scrollbar
-	set guioptions-=l
-	set guioptions-=L
-	" bottom scrollbar
-	set guioptions-=b
-	"关闭错误声音
-	au GUIEnter * set novisualbell vb t_vb=
-
-	if !exists('g:VimrcLoaded')
-		winpos 135 100
-		set lines=38
-		set columns=124
-	endif
-endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " let $VIMFILES var
 """""""""""""""""""""""""""""""""""""""""""""""""
 let $VIMFILES = $VIM.'/vimfiles'
 if has('unix')
-	let $VIMFILES = '~/.vim'
+	let $VIMFILES = $HOME.'/.vim'
 	if !has('gui_running') && executable('wmctrl')
 		function! ToggleFullscreen()
 			call system("wmctrl -ir " . v:windowid . " -btoggle,fullscreen")
@@ -230,48 +198,12 @@ if !exists('g:VimrcLoaded')
 	set t_Co=256
 
 	color monokai
-	if has('gui_running') && has('libcall')
-		let g:MyVimLib = $VIMRUNTIME.'/gvimfullscreen.dll'
-		function ToggleFullScreen()
-			call libcallnr(g:MyVimLib, "ToggleFullScreen", 0)
-		endfunction
-		map <A-Enter> <Esc>:call ToggleFullScreen()<CR>
-		"map <A-Enter> <Esc>:call libcallnr("gvimfullscreen.dll", "ToggleFullScreen", 0)<CR>
 
-		let g:VimAlpha = 240
-		function! SetAlpha(alpha)
-			let g:VimAlpha = g:VimAlpha + a:alpha
-			if g:VimAlpha < 180
-				let g:VimAlpha = 180
-			endif
-			if g:VimAlpha > 255
-				let g:VimAlpha = 255
-			endif
-			call libcall(g:MyVimLib, 'SetAlpha', g:VimAlpha)
-		endfunction
-		nmap <s-y> <Esc>:call SetAlpha(3)<CR>
-		nmap <s-t> <Esc>:call SetAlpha(-3)<CR>
-
-		let g:VimTopMost = 0
-
-		function! SwitchVimTopMostMode()
-			if g:VimTopMost == 0
-				let g:VimTopMost = 1
-			else
-				let g:VimTopMost = 0
-			endif
-			call libcall(g:MyVimLib, 'EnableTopMost', g:VimTopMost)
-		endfunction
-		nmap <s-r> <Esc>:call SwitchVimTopMostMode()<CR>
-	endif
-
-	"如果把 set encoding=utf-8 放在 ToggleFullScreen 前面
-	"则会导致全屏切换快捷键失效
 	set encoding=utf-8
 	set fileencodings=utf-8,ucs-bom,cp936
 	"set guifont=Courier_New_for_Powerline:h12:cANSI
 	if has('unix')
-		set guifont=Microsoft\ YaHei\ Mono\ for\ Powerline\ 12
+		set guifont=Microsoft\ YaHei\ Mono\ for\ Powerline:h14
 		"set guifont=Microsoft_YaHei_Mono_for_Powerline:h12:cGB2312
 	else
 		set guifont=Microsoft_YaHei_Mono_for_Powerl:h13:cGB2312
@@ -280,9 +212,8 @@ if !exists('g:VimrcLoaded')
 	set fileformat=unix
 	set fileformats=dos,unix,mac
 	set browsedir=buffer
-	set history=256
+	set history=512
 	set ambiwidth=double
-	set linespace=0
 	set display=lastline
 	set autoread
 	set cursorline
@@ -372,8 +303,11 @@ if !exists('g:VimrcLoaded')
 
 	" 重启后撤销历史可用 persistent undo
 	set undofile
-	set undodir=$VIMFILES/undo/
-	set undolevels=1000 "maximum number of changes that can be undone
+	set undodir=$VIMFILES/undo
+	if !isdirectory(&undodir)
+		call mkdir(&undodir)
+	endif
+	"set undolevels=1000 "maximum number of changes that can be undone
 
 	"set nobomb
 	"与Windows共享剪贴板
@@ -406,6 +340,8 @@ if !exists('g:VimrcLoaded')
 	set complete+=k
 	"执行cmd将结果返回在新tab中
 	"tabe +r\!cmd
+	let html_use_css = 1
+	let html_use_xhtml = 1
 endif
 
 autocmd filetype php setlocal dictionary+=$VIMFILES/dict/php_funclist.txt
@@ -443,15 +379,18 @@ autocmd filetype php setlocal dictionary+=$VIMFILES/dict/php_funclist.txt
 """"""""""""""""""""""""""""""""""""""""""""
 " Fast edit hosts file
 """"""""""""""""""""""""""""""""""""""""""""
-function! FlushDNS()
-	python import sys
-	exe 'python sys.argv = ["ipconfig /flushdns"]'
-	exe 'pyf '.g:svn_cmd_path
-endfunction
-:nmap <silent> <Leader>ho :tabnew c:\windows\system32\drivers\etc\hosts<CR>
-:nmap <silent> <Leader>dns :!ipconfig /flushdns<CR>
-autocmd! bufwritepost hosts call FlushDNS()
-
+if has('win32')
+	function! FlushDNS()
+		python import sys
+		exe 'python sys.argv = ["ipconfig /flushdns"]'
+		exe 'pyf '.g:svn_cmd_path
+	endfunction
+	:nmap <silent> <Leader>ho :tabnew $SYSTEMROOT\system32\drivers\etc\hosts<CR>
+	:nmap <silent> <Leader>dns :!ipconfig /flushdns<CR>
+	autocmd! bufwritepost hosts call FlushDNS()
+else
+	:nmap <silent> <Leader>ho :tabnew /etc/hosts<CR>
+endif
 
 map <Leader>hc :set cuc!<CR>
 map <Leader>ch :call SetColorColumn()<CR>
@@ -597,13 +536,20 @@ endfunction
 	nmap <Leader>rh :EraseBadWhitespace <CR>
 " }}}
 
-" {{{ winmove.vim plugin
-	let g:wm_move_left  = '<a-h>'
-	let g:wm_move_down  = '<a-j>'
-	let g:wm_move_up	= '<a-k>'
-	let g:wm_move_right = '<a-l>'
-" }}}
 
+" {{{ winmove.vim plugin
+	if has('mac')
+		let g:wm_move_left  = '<S-h>'
+		let g:wm_move_down  = '<S-j>'
+		let g:wm_move_up	= '<S-k>'
+		let g:wm_move_right = '<S-l>'
+	else
+		let g:wm_move_left  = '<a-h>'
+		let g:wm_move_down  = '<a-j>'
+		let g:wm_move_up	= '<a-k>'
+		let g:wm_move_right = '<a-l>'
+	endif
+" }}}
 
 """""""""""""""""""""""""""""""""""""""
 " Plugins Config End
@@ -682,8 +628,6 @@ map <A-w> :set wrap!<CR>
 autocmd FileType py,yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab
 
 """"""""""""""""""""""""""""""""""
-syntax on
-filetype plugin indent on
 let g:VimrcLoaded = 1
 
 " vim: tabstop=4 shiftwidth=4 softtabstop=4 noexpandtab
