@@ -79,6 +79,17 @@ if !exists('g:GVimrcLoaded')
 		nmap <s-r> <Esc>:call SwitchVimTopMostMode()<CR>
 	endif
 
+	"set guifont=Courier_New_for_Powerline:h12:cANSI
+	if has('win32')
+		:set guifont=Microsoft_YaHei_Mono_for_Powerl:h13:cGB2312
+	else
+		if has('gui_gtk2')
+			:set guifont=Microsoft\ YaHei\ Mono\ for\ Powerline\ 14
+		else
+			:set guifont=Microsoft\ YaHei\ Mono\ for\ Powerline:h14
+		endif
+	endif
+
 	set encoding=utf-8
 endif
 

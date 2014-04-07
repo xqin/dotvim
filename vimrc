@@ -14,7 +14,8 @@ let g:mapleader = ","
 let $VIMFILES = $VIM.'/vimfiles'
 if has('unix')
 	let $VIMFILES = $HOME.'/.vim'
-	if !has('gui_running') && executable('wmctrl')
+	"ubuntu sudo apt-get install wmctrl
+	if executable('wmctrl')
 		function! ToggleFullscreen()
 			call system("wmctrl -ir " . v:windowid . " -btoggle,fullscreen")
 		endfunction
@@ -194,6 +195,7 @@ hi CursorIM guifg=bg guibg=Blue gui=NONE
 
 
 if !exists('g:VimrcLoaded')
+	let g:VimrcLoaded = 1
 	"设置支持的颜色数
 	set t_Co=256
 
@@ -204,13 +206,6 @@ if !exists('g:VimrcLoaded')
 	endif
 
 	set fileencodings=utf-8,ucs-bom,cp936,cp950
-	"set guifont=Courier_New_for_Powerline:h12:cANSI
-	if has('unix')
-		set guifont=Microsoft\ YaHei\ Mono\ for\ Powerline:h14
-		"set guifont=Microsoft_YaHei_Mono_for_Powerline:h12:cGB2312
-	else
-		set guifont=Microsoft_YaHei_Mono_for_Powerl:h13:cGB2312
-	endif
 
 	set fileformat=unix
 	set fileformats=dos,unix,mac
@@ -554,16 +549,16 @@ endfunction
 
 
 " {{{ winmove.vim plugin
-	if has('mac')
-		let g:wm_move_left  = '<S-h>'
-		let g:wm_move_down  = '<S-j>'
-		let g:wm_move_up	= '<S-k>'
-		let g:wm_move_right = '<S-l>'
-	else
+	if has('win32')
 		let g:wm_move_left  = '<a-h>'
 		let g:wm_move_down  = '<a-j>'
-		let g:wm_move_up	= '<a-k>'
+		let g:wm_move_up    = '<a-k>'
 		let g:wm_move_right = '<a-l>'
+	else
+		let g:wm_move_left  = '<S-h>'
+		let g:wm_move_down  = '<S-j>'
+		let g:wm_move_up    = '<S-k>'
+		let g:wm_move_right = '<S-l>'
 	endif
 " }}}
 
@@ -644,6 +639,5 @@ map <A-w> :set wrap!<CR>
 autocmd FileType py,yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab
 
 """"""""""""""""""""""""""""""""""
-let g:VimrcLoaded = 1
 
 " vim: tabstop=4 shiftwidth=4 softtabstop=4 noexpandtab
