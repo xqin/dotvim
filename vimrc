@@ -448,8 +448,8 @@ endfunction
 			exec ':CtrlP '.l:fPath
 		endif
 	endfunction
-	map <a-p> :call FindInPath()<CR>
-	map <Leader>p :CtrlPBuffer<CR>
+	nmap <S-p> :call FindInPath()<CR>
+	nmap <Leader>p :CtrlPBuffer<CR>
 	set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 	set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe,*.msi  " Windows
 
@@ -634,7 +634,7 @@ inoremap <C-l> <Right>
 "启动时自动最大化
 "au GUIENTER * simalt~x
 au BufReadPost *.exe %!xxd
-map <A-w> :set wrap!<CR>
+nmap <S-w> :set wrap!<CR>
 
 autocmd FileType py,yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab
 
