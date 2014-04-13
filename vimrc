@@ -343,6 +343,8 @@ if !exists('g:VimrcLoaded')
 endif
 
 autocmd filetype php setlocal dictionary+=$VIMFILES/dict/php_funclist.txt
+autocmd filetype css,html setlocal dictionary+=$VIMFILES/dict/css.txt
+autocmd filetype javascript,html setlocal dictionary+=$VIMFILES/dict/javascript.txt
 
 " {{{ 查找光标位置的单词并生成结果列表
 	function! QuickSearchList(visual, ...)
