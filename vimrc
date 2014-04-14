@@ -7,7 +7,6 @@ behave mswin
 let mapleader = ","
 let g:mapleader = ","
 
-
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " let $VIMFILES var
 """""""""""""""""""""""""""""""""""""""""""""""""
@@ -207,8 +206,13 @@ if !exists('g:VimrcLoaded')
 
 	set fileencodings=utf-8,ucs-bom,cp936,cp950
 
+	if has('win32')
+		set fileformat=dos
+		set fileformats=dos,unix,mac
+	else
 	set fileformat=unix
-	set fileformats=dos,unix,mac
+		set fileformats=unix,dos,mac
+	endif
 	set browsedir=buffer
 	set history=512
 	set ambiwidth=double
@@ -345,6 +349,7 @@ endif
 autocmd filetype php setlocal dictionary+=$VIMFILES/dict/php_funclist.txt
 autocmd filetype css,html setlocal dictionary+=$VIMFILES/dict/css.txt
 autocmd filetype javascript,html setlocal dictionary+=$VIMFILES/dict/javascript.txt
+autocmd filetype javascript setlocal dictionary+=$VIMFILES/dict/node.txt
 
 " {{{ 查找光标位置的单词并生成结果列表
 	function! QuickSearchList(visual, ...)
@@ -482,6 +487,9 @@ endfunction
 	let NERDMenuMode = 0
 " }}}
 
+" {{{ Tabular
+" :Tab/=  将代码按 = 号对齐
+" }}}
 " {{{ bookmarking.vim colorscheme
 	hi BookMarkHighLight guifg=#7F9845 guibg=#232526
 	"sign define bookmark text=-> texthl=BookMarkHighLight linehl=BookMarkHighLight
@@ -537,10 +545,14 @@ endfunction
 	"		<CTRL-g>S - same as <CTRL-s><CTRL-s>
 " }}}
 
+" {{{ upAndDown.vim plugin
+vmap <silent> <C-j> <Plug>upAndDownVisualDown
+vmap <silent> <C-k> <Plug>upAndDownVisualUp
+" }}}
+
 " {{{ vimExplorer.vim plugin
 	map <Leader>E :VE %:p:h<CR>
 " }}}
-
 
 " {{{ vim-bad-withespace plugin
 	"切换 高亮显示/隐藏 行尾空格
@@ -563,6 +575,7 @@ endfunction
 		let g:wm_move_right = '<S-l>'
 	endif
 " }}}
+
 
 """""""""""""""""""""""""""""""""""""""
 " Plugins Config End

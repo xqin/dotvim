@@ -1,4 +1,6 @@
+ActiveXObject
 Array
+attachEvent
 Boolean
 Components
 DOM
@@ -152,6 +154,7 @@ const
 constructor
 containsNode
 content
+contentWindow
 continue
 controllers
 cookie
@@ -256,6 +259,7 @@ getAttribute
 getAttributeNS
 getAttributeNode
 getAttributeNodeNS
+getBoundingClientRect
 getComputedStyle
 getDate
 getDay
@@ -682,3 +686,6 @@ window
 with
 write
 writeln
+XMLHttpRequest
+console
+debugger

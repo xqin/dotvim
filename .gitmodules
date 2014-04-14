@@ -94,3 +94,12 @@
 [submodule "bundle/vim-css"]
 	path = bundle/vim-css
 	url = https://github.com/lepture/vim-css.git
+[submodule "bundle/upAndDown"]
+	path = bundle/upAndDown
+	url = https://github.com/vim-scripts/upAndDown.git
+[submodule "bundle/vim-jade"]
+	path = bundle/vim-jade
+	url = https://github.com/digitaltoad/vim-jade.git
+[submodule "bundle/html5"]
+	path = bundle/html5
+	url = https://github.com/othree/html5.vim.git
