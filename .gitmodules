@@ -91,9 +91,6 @@
 [submodule "bundle/vim-stylus"]
 	path = bundle/vim-stylus
 	url = https://github.com/wavded/vim-stylus.git
-[submodule "bundle/vim-css"]
-	path = bundle/vim-css
-	url = https://github.com/lepture/vim-css.git
 [submodule "bundle/upAndDown"]
 	path = bundle/upAndDown
 	url = https://github.com/vim-scripts/upAndDown.git
