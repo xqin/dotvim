@@ -177,6 +177,9 @@ nnoremap <c-c> :let @+ = expand('%:p')<cr>
 ":cw
 
 function! MakeTmpFile(ext)
+	if has('unix')
+		let $TEMP = '/tmp'
+	endif
 	let s:fname = $TEMP.'/vim_tmp_'.abs(reltimestr(reltime())).'.'.a:ext
 	exec ':tabnew '.s:fname
 endfunction
