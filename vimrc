@@ -349,10 +349,10 @@ if !exists('g:VimrcLoaded')
 	let html_use_xhtml = 1
 endif
 
-autocmd filetype php setlocal dictionary+=$VIMFILES/dict/php_funclist.txt
-autocmd filetype css,html setlocal dictionary+=$VIMFILES/dict/css.txt
-autocmd filetype javascript,html setlocal dictionary+=$VIMFILES/dict/javascript.txt
-autocmd filetype javascript setlocal dictionary+=$VIMFILES/dict/node.txt
+autocmd! filetype php setlocal dictionary+=$VIMFILES/dict/php_funclist.txt
+autocmd! filetype css,html setlocal dictionary+=$VIMFILES/dict/css.txt
+autocmd! filetype javascript,html setlocal dictionary+=$VIMFILES/dict/javascript.txt
+autocmd! filetype javascript setlocal dictionary+=$VIMFILES/dict/node.txt
 
 " {{{ 查找光标位置的单词并生成结果列表
 	function! QuickSearchList(visual, ...)
@@ -438,7 +438,7 @@ endfunction
 
 " {{{ vim-coffee-script
 	nnoremap <F5> :GundoToggle<CR>
-	autocmd FileType coffee setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+	autocmd! FileType coffee setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 " }}}
 
 
@@ -458,7 +458,7 @@ endfunction
 			exec ':CtrlP '.l:fPath
 		endif
 	endfunction
-	nmap <S-p> :call FindInPath()<CR>
+	"nmap <S-p> :call FindInPath()<CR>
 	nmap <Leader>p :CtrlPBuffer<CR>
 	set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 	set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe,*.msi  " Windows
@@ -653,8 +653,13 @@ inoremap <C-l> <Right>
 "au GUIENTER * simalt~x
 au BufReadPost *.exe %!xxd
 nmap <S-w> :set wrap!<CR>
+autocmd! FileType py,yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab
 
-autocmd FileType py,yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab
+"拖动文件到vim上时,使用新的Tab打开文件文件,而不是默认的使用buffer
+"autocmd! BufReadPost * nested tab sball
+
+"简单的模板文件实现,在创建新的下面扩展名的文件时,会自动读入 template/{c,html,css,js}.tpl 的文件
+"autocmd! BufNewFile  *.{c,html,css,js} 0r $VIMFILES/template/%:e.tpl
 
 """"""""""""""""""""""""""""""""""
 
