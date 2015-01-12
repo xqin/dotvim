@@ -256,6 +256,7 @@ if !exists('g:VimrcLoaded')
 	set tabstop=4
 	set softtabstop=4
 	set shiftwidth=4
+	"在Visual模式下使用<,>移动代码时,自动与附近的缩进对齐
 	set shiftround
 	set noexpandtab
 	set smarttab
@@ -327,7 +328,7 @@ if !exists('g:VimrcLoaded')
 	"set foldexpr=1
 	set foldlevel=99
 
-	set synmaxcol=128
+	set synmaxcol=512
 
 	" alway show status bar
 	set laststatus=2
