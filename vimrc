@@ -567,16 +567,21 @@ vmap <silent> <C-k> <Plug>upAndDownVisualUp
 
 
 " {{{ winmove.vim plugin
-	if has('win32')
-		let g:wm_move_left  = '<a-h>'
-		let g:wm_move_down  = '<a-j>'
-		let g:wm_move_up    = '<a-k>'
-		let g:wm_move_right = '<a-l>'
+	if has('gui_running')
+		if has('win32')
+			let g:wm_move_left  = '<a-h>'
+			let g:wm_move_down  = '<a-j>'
+			let g:wm_move_up    = '<a-k>'
+			let g:wm_move_right = '<a-l>'
+		else
+			let g:wm_move_left  = '<S-h>'
+			let g:wm_move_down  = '<S-j>'
+			let g:wm_move_up    = '<S-k>'
+			let g:wm_move_right = '<S-l>'
+		endif
 	else
-		let g:wm_move_left  = '<S-h>'
-		let g:wm_move_down  = '<S-j>'
-		let g:wm_move_up    = '<S-k>'
-		let g:wm_move_right = '<S-l>'
+		"以非GUI状态运行时,禁用winmove插件加载
+		let g:loaded_winmove = 1
 	endif
 " }}}
 
