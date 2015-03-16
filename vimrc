@@ -274,7 +274,7 @@ if !exists('g:VimrcLoaded')
 	"禁止鼠标
 	"set selectmode=key
 	"关闭鼠标的支持(如果需要开启设置值为a)
-	set mouse=a
+	"set mouse=a
 	" Make the command-line completion better
 	set wildmenu
 	set wildmode=list:full,full
