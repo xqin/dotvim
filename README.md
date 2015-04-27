@@ -27,6 +27,9 @@ Switch to the `.vim` or `vimfiles` directory, and fetch submodules:
     git submodule init
     git submodule update
 
+    Upgrading all bundled plugins
+    git submodule foreach git pull origin master
+
 
 To remove a submodule you need to:
 
@@ -43,3 +46,6 @@ To remove a submodule you need to:
     Commit the superproject.
 
     `git commit . -m 'remove submodule'`
+
+
+[Synchronizing plugins with git submodules and pathogen](http://vimcasts.org/episodes/synchronizing-plugins-with-git-submodules-and-pathogen/)
