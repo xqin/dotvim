@@ -489,6 +489,12 @@ endfunction
 " {{{ NERD_commenter
 "   Turns the menu off
 	let NERDMenuMode = 0
+	" <leader>ca	在可选的注释方式之间切换，比如C/C++ 的块注释/* */和行注释//
+	" <leader>cc	注释当前行
+	" <leader>cu	取消注释
+	" <leader>c空格	切换注释/非注释状态
+	" <leader>cs	以”性感”的方式注释
+	" <leader>cA	在当前行尾添加注释符，并进入Insert模式
 " }}}
 
 " {{{ Tabular
