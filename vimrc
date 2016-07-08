@@ -447,8 +447,8 @@ endfunction
 	"1. install nodejs
 	"2. npm install -g coffee-script
 	"3. npm install -g coffeelint
-	nmap <Leader>mc :CoffeeMake<CR>
-	nmap <Leader>cv :CoffeeCompile watch vert<CR>
+	nmap <Leader>mc :make<CR>
+	nmap <Leader>cv :CoffeeWatch vert<CR>
 	"au BufWritePost *.coffee silent CoffeeMake! -b | cwindow
 " }}}
 

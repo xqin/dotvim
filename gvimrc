@@ -33,7 +33,7 @@ if !exists('g:GVimrcLoaded')
 		set guioptions-=M
 
 		"set gui windows position
-		winpos 135 100
+		winpos 200 60
 		"set windows size
 		set lines=38
 		set columns=124
@@ -81,7 +81,7 @@ if !exists('g:GVimrcLoaded')
 
 	"set guifont=Courier_New_for_Powerline:h12:cANSI
 	if has('win32')
-		:set guifont=Microsoft_YaHei_Mono_for_Powerl:h13:cGB2312
+		:set guifont=Microsoft_YaHei_Mono_for_Powerl:h16:cGB2312
 	else
 		if has('gui_gtk2')
 			:set guifont=Microsoft\ YaHei\ Mono\ for\ Powerline\ 14
