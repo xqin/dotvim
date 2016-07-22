@@ -437,9 +437,8 @@ endfunction
 	vnoremap <Leader>cj :JSHint<CR>
 " }}}
 
-" {{{ vim-coffee-script
+" {{{ Gundo
 	nnoremap <F5> :GundoToggle<CR>
-	autocmd! FileType coffee setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 " }}}
 
 
@@ -450,6 +449,7 @@ endfunction
 	nmap <Leader>mc :make<CR>
 	nmap <Leader>cv :CoffeeWatch vert<CR>
 	"au BufWritePost *.coffee silent CoffeeMake! -b | cwindow
+	autocmd! FileType coffee setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 " }}}
 
 " {{{ CtrlP
@@ -672,6 +672,8 @@ autocmd! FileType py,yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2 noexpand
 
 "简单的模板文件实现,在创建新的下面扩展名的文件时,会自动读入 template/{c,html,css,js}.tpl 的文件
 "autocmd! BufNewFile  *.{c,html,css,js} 0r $VIMFILES/template/%:e.tpl
+
+autocmd! BufEnter  *.json setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
 """"""""""""""""""""""""""""""""""
 
