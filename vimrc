@@ -1,5 +1,6 @@
 set nocompatible
 behave mswin
+set modeline
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 " remap leader
@@ -253,12 +254,12 @@ if !exists('g:VimrcLoaded')
 	set number
 	set autoindent
 	set smartindent
-	set tabstop=4
-	set softtabstop=4
-	set shiftwidth=4
+	set tabstop=2
+	set softtabstop=2
+	set shiftwidth=2
 	"在Visual模式下使用<,>移动代码时,自动与附近的缩进对齐
 	set shiftround
-	set noexpandtab
+	set expandtab
 	set smarttab
 	"retab  将tab转换为空格
 	"执行外部命令时禁止恢复屏幕内容
